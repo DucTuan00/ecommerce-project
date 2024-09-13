@@ -1,0 +1,67 @@
+const productModel = require('../models/productModel');
+
+// Lấy tất cả sản phẩm
+exports.getProducts = (req, res) => {
+    productModel.getAllProducts((err, results) => {
+        if (err) return res.status(500).json({ message: 'Error fetching products' });
+        res.json(results);
+    });
+};
+
+// Thêm sản phẩm
+exports.createProduct = (req, res) => {
+    const { name, price, description, category_id, imagePath } = req.body;
+    const image = imagePath || null;
+
+    productModel.createProduct(name, price, image, description, category_id, (err, results) => {
+        if (err) return res.status(500).json({ message: 'Error creating product' });
+        res.status(201).json({
+            id: results.insertId,
+            name,
+            price,
+            image,
+            description,
+            category_id,
+            message: 'Product created successfully'
+        });
+    });
+};
+
+// Cập nhật sản phẩm
+exports.updateProduct = (req, res) => {
+    const { id } = req.params;
+    const { name, price, image, description, category_id } = req.body;
+
+    productModel.updateProduct(id, name, price, image, description, category_id, (err, results) => {
+        if (err) return res.status(500).json({ message: 'Error updating product' });
+        res.json({ message: 'Product updated successfully' });
+    });
+};
+
+// Xóa sản phẩm
+exports.deleteProduct = (req, res) => {
+    const { id } = req.params;
+
+    productModel.deleteProduct(id, (err, results) => {
+        if (err) return res.status(500).json({ message: 'Error deleting product' });
+        res.json({ message: 'Product deleted successfully' });
+    });
+};
+
+const fs = require('fs');
+const path = require('path');
+
+// Phương thức upload ảnh
+exports.uploadImage = (req, res) => {
+    if (!req.file) {
+        return res.status(400).json({ message: 'No file uploaded' });
+    }
+
+    // Lưu đường dẫn ảnh
+    const imagePath = req.file.path;
+
+    res.status(201).json({
+        message: 'Image uploaded successfully',
+        imagePath,
+    });
+};

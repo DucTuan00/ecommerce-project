@@ -1,0 +1,37 @@
+const db = require('../config/db');
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+
+//Đăng ký
+const register = (username, password, role_id, callback) => {
+    bcrypt.hash(password, 10, (err, hash) => {
+        if(err) return callback(err);
+
+        db.query('INSERT INTO users (username, password, role_id) VALUES (?, ?, ?)', [username, hash, role_id], (err, results) => {
+            if(err) return callback(err);
+            callback(null, { id: results.insertId, username });    
+        });
+    });    
+};
+
+//Đăng nhập
+const login = (username, password, callback) => {
+    db.query('SELECT * FROM users WHERE username = ?', [username], (err, results) => {
+        if(err) return callback(err);
+        if(results.length === 0) return callback(new Error('Invalid credentials'));
+
+        const user = results[0];
+        bcrypt.compare(password, user.password, (err, match) => {
+            if(err) return callback(err);
+            if(!match) return callback(new Error('Invalid credentials'));
+
+            const token = jwt.sign({ id: user.id, username: user.username }, process.env.JWT_SECRET, { expiresIn: '1h' });
+            callback(null, { id: user.id, role_id: user.role_id, token });
+        });
+    });
+};
+
+module.exports = {
+    register,
+    login
+};
