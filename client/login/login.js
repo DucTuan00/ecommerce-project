@@ -29,9 +29,8 @@ document.getElementById('loginForm').addEventListener('submit', async function(e
         const data = await response.json();
 
         if (response.ok) {
-            alert('Login successful!');
             // Optionally, redirect to another page
-            // window.location.href = '/home.html'; // Change this to the desired redirect URL
+            window.location.href = '../home/home.html'; 
         } else {
             // Display error message from API
             errorMessage.textContent = data.message || 'An error occurred. Please try again.';
