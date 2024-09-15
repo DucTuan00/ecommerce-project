@@ -22,9 +22,21 @@ const deleteProduct = (id, callback) => {
     db.query('DELETE FROM products WHERE id = ?', [id], callback);
 };
 
+// Tìm kiếm sản phẩm
+const searchProducts = (searchTerm, callback) => {
+    const sql = `SELECT * FROM products WHERE name LIKE ? OR description LIKE ?`;
+    const params = [`%${searchTerm}%`, `%${searchTerm}%`];
+
+    db.query(sql, params, (err, results) => {
+        if (err) return callback(err);
+        callback(null, results);
+    });
+};
+
 module.exports = {
     getAllProducts,
     createProduct,
     updateProduct,
-    deleteProduct
+    deleteProduct,
+    searchProducts
 };
