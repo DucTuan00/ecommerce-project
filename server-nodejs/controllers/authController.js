@@ -3,6 +3,7 @@ const authModel = require('../models/authModel');
 // Đăng ký
 exports.register = (req, res) => {
     const { username, password, role_id } = req.body;
+    console.log("register")
     const userRoleId = role_id || 2;
 
     authModel.register(username, password, role_id, (err, user) => {
@@ -18,8 +19,7 @@ exports.register = (req, res) => {
 // Đăng nhập
 exports.login = (req, res) => {
     const { username, password } = req.body;
-    console.log('username', username);
-    console.log("password",password)
+    console.log("login")
 
     authModel.login(username, password, (err, user) => {
         if (err) {
@@ -28,6 +28,15 @@ exports.login = (req, res) => {
             }
             return res.status(500).json({ message: 'Có lỗi trong quá trình đăng nhập' });
         }
+
+        //  // Phát token vào cookie
+        //  res.cookie('token', user.token, {
+        //     httpOnly: false,  
+        //     secure: false,    
+        //     sameSite: 'none', 
+        //     maxAge: 24 * 60 * 60 * 1000 
+        // });
+
         res.json({
             id: user.id,
             role: user.role_id,
