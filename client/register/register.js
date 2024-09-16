@@ -20,7 +20,8 @@ document.getElementById('registerForm').addEventListener('submit', async functio
     // Create the request payload
     const payload = {
         username: username,
-        password: password
+        password: password,
+        role_id: 2
     };
 
     try {

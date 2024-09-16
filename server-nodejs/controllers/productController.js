@@ -51,7 +51,7 @@ exports.deleteProduct = (req, res) => {
 const fs = require('fs');
 const path = require('path');
 
-// Phương thức upload ảnh
+// Upload ảnh
 exports.uploadImage = (req, res) => {
     if (!req.file) {
         return res.status(400).json({ message: 'No file uploaded' });
@@ -64,4 +64,23 @@ exports.uploadImage = (req, res) => {
         message: 'Image uploaded successfully',
         imagePath,
     });
+};
+
+// tìm kiếm sản phẩm
+exports.searchProducts = (req, res) => {
+    const { searchTerm } = req.query; // chuỗi sau dấu '?' sẽ được gán cho searchTerm
+
+    if (searchTerm) {
+        // Nếu có searchTerm, tìm kiếm sản phẩm theo tên hoặc mô tả
+        productModel.searchProducts(searchTerm, (err, products) => {
+            if (err) return res.status(500).json({ message: 'Error searching products' });
+            res.status(200).json(products);
+        });
+    } else {
+        // Nếu không có searchTerm, trả về tất cả sản phẩm
+        productModel.getAllProducts((err, products) => {
+            if (err) return res.status(500).json({ message: 'Error fetching products' });
+            res.status(200).json(products);
+        });
+    }
 };
