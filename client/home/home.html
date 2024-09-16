@@ -49,9 +49,15 @@
             width: 300px;
         }
 
-        .cart,
-        .logout {
+        .icon {
+            font-size: 24px;
             color: #ff416c;
+            margin-left: 20px;
+            cursor: pointer;
+        }
+
+        .add-product {
+            color: #28a745;
             font-size: 18px;
             font-weight: bold;
             cursor: pointer;
@@ -118,7 +124,7 @@
         /* Products grid */
         .products-container {
             display: grid;
-            grid-template-columns: repeat(5, 1fr);
+            grid-template-columns: repeat(4, 1fr);
             gap: 20px;
             width: 85%;
             margin-right: 2%;
@@ -153,7 +159,16 @@
             font-size: 20px;
             font-weight: bold;
         }
+        .add-product-icon{
+            color: red;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-right: 20px;
+        }
     </style>
+    <!-- Include FontAwesome CDN -->
+    <script src="https://kit.fontawesome.com/91c8b57a30.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -162,11 +177,12 @@
     <div class="header">
         <div class="logo">Đồ Gia Dụng</div>
         <div class="search-cart-container">
+            <div class="add-product-icon"><i class="fa-solid fa-plus"></i>Thêm sản phẩm</div>
             <div class="search-bar">
                 <input type="text" class="search-input" placeholder="Tìm kiếm sản phẩm...">
             </div>
-            <div class="cart">🛒 Giỏ hàng</div>
-            <div class="logout">🚪 Đăng xuất</div>
+            <div class="icon"><i class="fas fa-shopping-cart"></i></div>
+            <div class="icon"><i class="fas fa-sign-out-alt"></i> Đăng xuất</div>
         </div>
     </div>
 
@@ -215,14 +231,13 @@
                     <div class="product-price">1.500.000đ</div>
                 </div>
                 <div class="product-item">
-                    <img src="https://via.placeholder.com/300x300.png?text=Sản+Phẩm+4" alt="Sản phẩm 4">
+                    <img src="https://via.placeholder.com/300x300.png?text=Sản+Phẩm+4" alt="Sản phẩm 5">
                     <div class="product-name">Sản phẩm 5</div>
                     <div class="product-price">4.500.000đ</div>
                 </div>
             </div>
         </div>
     </div>
-
 
     <script src="home.js"></script>
 

@@ -18,13 +18,15 @@ exports.register = (req, res) => {
 // Đăng nhập
 exports.login = (req, res) => {
     const { username, password } = req.body;
+    console.log('username', username);
+    console.log("password",password)
 
     authModel.login(username, password, (err, user) => {
         if (err) {
-            if (err.message === 'Invalid credentials') {
+            if (err.message === 'Có lỗi trong quá trình đăng nhập') {
                 return res.status(401).json({ message: err.message });
             }
-            return res.status(500).json({ message: 'Error logging in' });
+            return res.status(500).json({ message: 'Có lỗi trong quá trình đăng nhập' });
         }
         res.json({
             id: user.id,
