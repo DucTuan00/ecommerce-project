@@ -30,11 +30,18 @@ exports.createProduct = (req, res) => {
 // Cập nhật sản phẩm
 exports.updateProduct = (req, res) => {
     const { id } = req.params;
-    const { name, price, image, description, category_id } = req.body;
+    const { name, price, description, category_id, imagePath } = req.body;
+    const image = imagePath || null;
 
     productModel.updateProduct(id, name, price, image, description, category_id, (err, results) => {
         if (err) return res.status(500).json({ message: 'Error updating product' });
-        res.json({ message: 'Product updated successfully' });
+        res.status(201).json({
+            name,
+            price,
+            image,
+            description,
+            category_id
+        });
     });
 };
 
