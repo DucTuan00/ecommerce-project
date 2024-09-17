@@ -31,7 +31,15 @@ const login = (username, password, callback) => {
     });
 };
 
+const getUserById = (user_id, callback) => {
+    db.query('SELECT * FROM users WHERE id = ?', [user_id], (err, results) => {
+        if (err) return callback(err);
+        callback(null, results.length > 0);
+    });
+};
+
 module.exports = {
     register,
-    login
+    login,
+    getUserById
 };
