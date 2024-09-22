@@ -6,165 +6,190 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home - Đồ Gia Dụng</title>
     <style>
-        /* General Reset */
         body {
+            font-family: Arial, sans-serif;
             margin: 0;
-            font-family: 'Roboto', sans-serif;
-            background-color: #f8f9fa;
-            overflow-x: hidden;
+            padding: 0;
+            background-color: #f8f8f8;
         }
-
-        /* Header styles */
         .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background-color: white;
-            padding: 20px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            padding: 10px 20px;
+            background-color: #fa541c;
+            padding: 20px 30px 25px 30px;
         }
-
         .logo {
+            color: white;
             font-size: 24px;
             font-weight: bold;
-            color: #ff416c;
         }
-
-        .search-cart-container {
-            display: flex;
-            align-items: center;
-        }
-
         .search-bar {
             display: flex;
             align-items: center;
-            margin-right: 20px;
+            flex-grow: 1;
+            margin: 0 20px;
+            border-radius: 25px;
         }
-
-        .search-input {
-            padding: 10px;
-            border-radius: 20px;
-            border: 2px solid #ff416c;
-            outline: none;
-            width: 300px;
+        .search-bar select, .search-bar input {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 25px;
         }
-
-        .icon {
-            font-size: 24px;
-            color: #ff416c;
-            margin-left: 20px;
+        .search-bar input {
+            flex-grow: 1;
+            margin-left: 10px;
+        }
+        .header-actions {
+            display: flex;
+            align-items: center;
+        }
+        .header-actions button, .header-actions a {
+            margin-left: 15px;
+            padding: 8px 15px;
+            border: none;
+            background-color: #ff6600;
+            color: white;
             cursor: pointer;
+            text-decoration: none;
+            border-radius: 5px;
         }
-
-        .add-product {
-            color: #28a745;
-            font-size: 18px;
-            font-weight: bold;
-            cursor: pointer;
-            margin-left: 20px;
+        .categories {
+            display: flex;
+            justify-content: space-around;
+            padding: 15px 0;
+            background-color: #fff;
+            border-bottom: 1px solid #ddd;
+            margin-bottom: 30px;
         }
-
-        /* Slideshow styles */
+        .categories a {
+            text-decoration: none;
+            color: #333;
+            padding: 5px 10px;
+        }
+        .categories a:hover, .categories a.active {
+            color: #ff6600;
+            border-bottom: 2px solid #ff6600;
+        }
         .slideshow-container {
             position: relative;
             max-width: 80%;
             margin: 20px auto;
         }
-
         .slideshow img {
             width: 100%;
             border-radius: 10px;
         }
-
+        .category-layout {
+            display: flex;
+            width: 100%;
+            justify-content: center;
+            align-items: flex-start;
+            margin-top: 20px;
+        }
+        .category-highlights {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+            gap: 8px;
+            width: 80%;
+        }
+        .category-card {
+            flex: 1;
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+        }
+        .category-card img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+        }
+        .category-card .category-title {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            color: white;
+            font-size: 25px;
+            font-weight: bold;
+        }
         .main-content-layout {
             display: flex;
             width: 100%;
             justify-content: center;
-            align-items: center;
+            align-items: flex-start;
+            margin-top: 20px;
         }
-
-        /* Main content layout */
         .main-content {
             display: flex;
             width: 80%;
-            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
-
-        /* Menu styles */
         .menu {
-            width: 15%;
+            width: 20%;
             padding: 20px;
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            margin-right: 20px;
+            border-right: 1px solid #ddd;
         }
-
         .menu h3 {
             margin-bottom: 15px;
-            font-size: 20px;
-            color: #ff416c;
+            font-size: 18px;
+            color: #333;
         }
-
         .menu ul {
             list-style-type: none;
             padding: 0;
         }
-
         .menu li {
             padding: 10px 0;
             cursor: pointer;
             transition: color 0.3s ease;
         }
-
         .menu li:hover {
-            color: #ff416c;
+            color: #ff6600;
         }
-
-        /* Products grid */
         .products-container {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
             gap: 20px;
-            width: 85%;
-            margin-right: 2%;
+            padding: 20px;
+            width: 80%;
         }
-
         .product-item {
-            background-color: white;
+            background-color: #fff;
             padding: 15px;
             text-align: center;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
-
         .product-item:hover {
             transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
-
         .product-item img {
             width: 100%;
             border-radius: 8px;
         }
-
         .product-name {
-            font-size: 18px;
+            font-size: 16px;
             margin: 10px 0;
+            color: #333;
         }
-
         .product-price {
-            color: #ff416c;
-            font-size: 20px;
+            color: #ff6600;
+            font-size: 18px;
             font-weight: bold;
         }
-        .add-product-icon{
-            color: red;
+        .add-product-icon {
+            color: #ff6600;
             font-size: 18px;
             font-weight: bold;
             cursor: pointer;
-            margin-right: 20px;
+            margin-top: 10px;
+            display: inline-block;
         }
     </style>
     <!-- Include FontAwesome CDN -->
@@ -174,22 +199,56 @@
 <body>
 
     <!-- Header -->
-    <div class="header">
-        <div class="logo">Đồ Gia Dụng</div>
-        <div class="search-cart-container">
-            <div class="add-product-icon"><i class="fa-solid fa-plus"></i>Thêm sản phẩm</div>
-            <div class="search-bar">
-                <input type="text" class="search-input" placeholder="Tìm kiếm sản phẩm...">
-            </div>
-            <div class="icon"><i class="fas fa-shopping-cart"></i></div>
-            <div class="icon"><i class="fas fa-sign-out-alt"></i> Đăng xuất</div>
+    <header class="header">
+        <div class="logo">E-commerce</div>
+        <div class="search-bar">
+            <input type="text" placeholder="Search anything">
         </div>
-    </div>
+        <div class="header-actions">
+            <a href="../login/login.html">Đăng xuất</a>
+            <a href="#"><i class="fas fa-shopping-cart"></i> Shopping</a>
+        </div>
+    </header>
 
-    <!-- Slideshow -->
+    <nav class="categories">
+        <a href="#"></a><a href="#"></a>
+        <a href="../home/home.html" class="active">Trang chủ</a>
+        <a href="../product/product.html">Sản phẩm</a>
+        <a href="../order/order.html">Đơn hàng</a>
+        <a href="#">Giới thiệu</a>
+        <a href="#"></a><a href="#"></a>
+    </nav>
+
+
     <div class="slideshow-container">
         <div class="slideshow">
             <img src="https://via.placeholder.com/1200x400.png?text=Tin+Tức+1" alt="Slide 1">
+        </div>
+    </div>
+
+
+    <div class="category-layout">
+        <div class="category-highlights">
+            <div class="category-card">
+                <img src="../img/pan.png" alt="Kitchen">
+                <div class="category-title">Chảo</div>
+            </div>
+            <div class="category-card">
+                <img src="../img/pot.png" alt="Home & Living">
+                <div class="category-title">Nồi</div>
+            </div>
+            <div class="category-card">
+                <img src="../img/vacuumCleaner.png" alt="Art & Collectibles">
+                <div class="category-title">Máy hút bụi</div>
+            </div>
+            <div class="category-card">
+                <img src="../img/gasStove.png" alt="Art & Collectibles">
+                <div class="category-title">Bếp</div>
+            </div>
+            <div class="category-card">
+                <img src="../img/blender.png" alt="Art & Collectibles">
+                <div class="category-title">Máy xay</div>
+            </div>
         </div>
     </div>
 
@@ -240,6 +299,8 @@
     </div>
 
     <script src="home.js"></script>
+    <script src="../header.js"></script>
+
 
 </body>
 
