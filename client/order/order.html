@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý Sản Phẩm</title>
+    <script src="https://kit.fontawesome.com/91c8b57a30.js" crossorigin="anonymous"></script>
+    <style>
+        /* Reset CSS */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f5f7;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 30px 25px 30px;
+            background-color: #fa541c;
+        }
+
+        .logo {
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .search-bar {
+            display: flex;
+            align-items: center;
+            flex-grow: 1;
+            margin: 0 20px;
+            border-radius: 25px;
+        }
+
+        .search-bar select,
+        .search-bar input {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 25px;
+        }
+
+        .search-bar input {
+            flex-grow: 1;
+            margin-left: 10px;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+        }
+
+        .header-actions a {
+            margin-left: 15px;
+            padding: 8px 15px;
+            background-color: #ff6600;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .header-actions a:hover {
+            background-color: #e64e00;
+        }
+
+        .categories {
+            display: flex;
+            justify-content: space-around;
+            padding: 15px 0;
+            background-color: #fff;
+            border-bottom: 1px solid #ddd;
+            margin-bottom: 30px;
+        }
+
+        .categories a {
+            text-decoration: none;
+            color: #333;
+            padding: 5px 10px;
+        }
+
+        .categories a:hover,
+        .categories a.active {
+            color: #ff6600;
+            border-bottom: 2px solid #ff6600;
+        }
+
+        .container {
+            width: 90%;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #ff416c;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .add-product-btn,
+        .delete-selected-btn {
+            display: inline-block;
+            width: 80px;
+            margin: 5px;
+            padding: 5px;
+            background-color: #28a745;
+            color: white;
+            border-radius: 5px;
+            text-align: center;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        .add-product-btn:hover {
+            background-color: #218838;
+        }
+
+        .delete-selected-btn {
+            background-color: #dc3545;
+        }
+
+        .delete-selected-btn:hover {
+            background-color: #c82333;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        th,
+        td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f7f7f7;
+            font-weight: bold;
+        }
+
+        tbody tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .actions-btn {
+            text-align: right;
+        }
+
+        .actions-btn a {
+            margin-left: 10px;
+            color: white;
+            padding: 5px 10px;
+            background-color: #007bff;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .actions-btn a.delete-btn {
+            background-color: #dc3545;
+        }
+
+        .actions-btn a:hover {
+            opacity: 0.8;
+        }
+
+        .select-product {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="logo">E-commerce</div>
+        <div class="search-bar">
+            <input type="text" placeholder="Tìm kiếm sản phẩm...">
+        </div>
+        <div class="header-actions">
+            <a href="#">Đăng xuất</a>
+            <a href="#"><i class="fas fa-shopping-cart"></i> Giỏ hàng</a>
+        </div>
+    </header>
+
+    <nav class="categories">
+        <a href="../home/home.html">Trang chủ</a>
+        <a href="../product/product.html" class="active">Sản phẩm</a>
+        <a href="#">Đơn hàng</a>
+        <a href="#">Giới thiệu</a>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container">
+        <h1>Danh Sách Đơn Hàng</h1>
+
+        <!-- Product Table -->
+        <table>
+            <thead>
+                <tr>
+                    <th><input type="checkbox" id="select-all"></th>
+                    <th>Tên sản phẩm</th>
+                    <th>Giá sản phẩm</th>
+                    <th>Thể loại</th>
+                    <th>Mô tả</th>
+                    <th>Link hình ảnh</th>
+                    <th>Hành động</th>
+                </tr>
+            </thead>
+            <tbody id="productTableBody">
+                <tr>
+                    <td class="select-product"><input type="checkbox" class="select-item"></td>
+                    <td>Sản phẩm 1</td>
+                    <td>500.000đ</td>
+                    <td>Điện thoại</td>
+                    <td>Điện thoại thông minh với nhiều tính năng.</td>
+                    <td>https://via.placeholder.com/150</td>
+                    <td class="actions-btn">
+                        <a href="../editProduct/editProduct.html" class="edit-btn">Xem chi tiết</a>
+                    </td>
+                </tr>
+                <!-- Add more product rows as needed -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        // JavaScript to handle select all checkbox functionality
+        document.getElementById('select-all').addEventListener('change', function () {
+            const checkboxes = document.querySelectorAll('.select-item');
+            checkboxes.forEach(checkbox => {
+                checkbox.checked = this.checked;
+            });
+        });
+    </script>
+
+<script src="../checkAuth.js"></script>
+
+</body>
+
+</html>
