@@ -37,9 +37,8 @@ document.getElementById('registerForm').addEventListener('submit', async functio
         const data = await response.json();
 
         if (response.ok) {
-            alert('Registration successful!');
             // Optionally, redirect to another page
-            // window.location.href = '/login.html';
+            window.location.href = '../login/login.html';
         } else {
             // Display error message from API
             errorMessage.textContent = data.message || 'An error occurred. Please try again.';

@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý Sản Phẩm</title>
+    <script src="https://kit.fontawesome.com/91c8b57a30.js" crossorigin="anonymous"></script>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f8f8;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 30px;
+            background-color: #fa541c;
+            color: white;
+        }
+        .search-bar {
+            display: flex;
+            align-items: center;
+            flex-grow: 1;
+            margin: 0 20px;
+            border-radius: 25px;
+        }
+        .search-bar select, .search-bar input {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 25px;
+        }
+        .search-bar input {
+            flex-grow: 1;
+            margin-left: 10px;
+        }
+        .header-actions {
+            display: flex;
+            align-items: center;
+        }
+        .header-actions button, .header-actions a {
+            margin-left: 15px;
+            padding: 8px 15px;
+            border: none;
+            background-color: #ff6600;
+            color: white;
+            cursor: pointer;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        nav {
+            display: flex;
+            justify-content: space-around;
+            padding: 15px 0;
+            background-color: #fff;
+            border-bottom: 1px solid #ddd;
+            margin-bottom: 30px;
+        }
+        nav a {
+            text-decoration: none;
+            color: #333;
+            padding: 5px 10px;
+            transition: color 0.3s ease;
+        }
+        nav a:hover {
+            color: #ff6600;
+        }
+        .container {
+            width: 95%;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        label {
+            font-weight: bold;
+            color: #555;
+            margin-bottom: 8px;
+        }
+        input, textarea, select {
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border 0.3s ease;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: #ff6600;
+        }
+        textarea {
+            resize: vertical;
+        }
+        button {
+            padding: 12px 20px;
+            background-color: #ff6600;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #fa541c;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="logo">E-commerce</div>
+        <div class="search-bar">
+            <input type="text" placeholder="Search anything">
+        </div>
+        <div class="header-actions">
+            <a href="../login/login.html">Đăng xuất</a>
+            <a href="#"><i class="fas fa-shopping-cart"></i> Shopping</a>
+        </div>
+    </header>
+
+    <nav>
+        <a href="../home/home.html">Trang chủ</a>
+        <a href="../product/product.html" style="color: #ff6600; border-bottom: 2px solid #ff6600;">Sản phẩm</a>
+        <a href="../order/order.html">Đơn hàng</a>
+        <a href="#">Giới thiệu</a>
+    </nav>
+
+    <!-- Thêm Sản Phẩm -->
+    <div class="container">
+        <h2>Cập nhật Sản Phẩm</h2>
+        <form id="addProductForm">
+            <div>
+                <label for="productName">Tên sản phẩm:</label>
+                <input type="text" id="productName" name="productName" placeholder="Nhập tên sản phẩm">
+            </div>
+
+            <div>
+                <label for="productPrice">Giá sản phẩm:</label>
+                <input type="number" id="productPrice" name="productPrice" placeholder="Nhập giá sản phẩm">
+            </div>
+
+            <div>
+                <label for="productImage">Ảnh sản phẩm:</label>
+                <input type="file" id="productImage" name="productImage">
+            </div>
+
+            <div>
+                <label for="productDescription">Mô tả sản phẩm:</label>
+                <textarea id="productDescription" name="productDescription" rows="4" placeholder="Nhập mô tả sản phẩm"></textarea>
+            </div>
+
+            <div>
+                <label for="productCategory">Thể loại sản phẩm:</label>
+                <select id="productCategory" name="productCategory">
+                    <option value="electronics">Điện tử</option>
+                    <option value="clothing">Thời trang</option>
+                    <option value="home">Đồ gia dụng</option>
+                </select>
+            </div>
+
+            <button type="submit">Cập nhật sản phẩm</button>
+        </form>
+    </div>
+
+    <script src="../checkAuth.js"></script>
+    <script src="../header.js"></script>
+
+
+</body>
+</html>
