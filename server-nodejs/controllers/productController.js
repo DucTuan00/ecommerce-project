@@ -1,3 +1,4 @@
+const { log } = require('console');
 const productModel = require('../models/productModel');
 
 // Lấy tất cả sản phẩm
@@ -10,11 +11,18 @@ exports.getProducts = (req, res) => {
 
 // Thêm sản phẩm
 exports.createProduct = (req, res) => {
-    const { name, price, description, category_id, imagePath } = req.body;
-    const image = imagePath || null;
+    const { name, price, description, category_id } = req.body;
+
+    const image = req.file ? req.file.path : null;
+
+    console.log("data", req.body, req.file); 
 
     productModel.createProduct(name, price, image, description, category_id, (err, results) => {
-        if (err) return res.status(500).json({ message: 'Error creating product' });
+        if (err) {
+            console.error(err);
+            return res.status(500).json({ message: 'Error creating product' });
+        }
+
         res.status(201).json({
             id: results.insertId,
             name,

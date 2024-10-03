@@ -19,7 +19,8 @@ router.get('/', productController.getProducts);
 
 router.get('/search', productController.searchProducts);
 
-router.post('/', authMiddleware(['1']), productController.createProduct);
+router.post('/', authMiddleware(['1']), upload.single('image'), productController.createProduct);
+
 
 //upload ảnh
 router.post('/upload', authMiddleware(['1']), upload.single('image'), productController.uploadImage);

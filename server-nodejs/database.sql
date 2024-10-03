@@ -1,5 +1,10 @@
 CREATE DATABASE shop_db;
 USE shop_db;
+CREATE TABLE roles (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(50) NOT NULL UNIQUE
+);
+
 CREATE TABLE users (
     id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(255) NOT NULL UNIQUE,
@@ -7,12 +12,6 @@ CREATE TABLE users (
     role_id INT,
     FOREIGN KEY (role_id) REFERENCES roles(id)
 );
-
-CREATE TABLE roles (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(50) NOT NULL UNIQUE
-);
-INSERT INTO roles (name) VALUES ('admin'), ('user');
 
 CREATE TABLE categories (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -38,3 +37,11 @@ CREATE TABLE carts (
     FOREIGN KEY (user_id) REFERENCES users(id),
     FOREIGN KEY (product_id) REFERENCES products(id)
 );
+
+INSERT INTO roles (name) VALUES ('admin'), ('user');
+INSERT INTO categories (name) VALUES ('Chảo');
+INSERT INTO categories (name) VALUES ('Nồi');
+INSERT INTO categories (name) VALUES ('Bếp');
+INSERT INTO categories (name) VALUES ('Máy xay');
+INSERT INTO categories (name) VALUES ('Máy hút bụi');
+

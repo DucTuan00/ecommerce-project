@@ -222,31 +222,20 @@
         <table>
             <thead>
                 <tr>
-                    <th><input type="checkbox" id="select-all"></th>
+                    <th>Chọn</th>
                     <th>Tên sản phẩm</th>
-                    <th>Giá sản phẩm</th>
-                    <th>Thể loại</th>
+                    <th>Giá</th>
+                    <th>Danh mục</th>
                     <th>Mô tả</th>
-                    <th>Link hình ảnh</th>
+                    <th>Hình ảnh</th>
                     <th>Hành động</th>
                 </tr>
             </thead>
-            <tbody id="productTableBody">
-                <tr>
-                    <td class="select-product"><input type="checkbox" class="select-item"></td>
-                    <td>Sản phẩm 1</td>
-                    <td>500.000đ</td>
-                    <td>Điện thoại</td>
-                    <td>Điện thoại thông minh với nhiều tính năng.</td>
-                    <td>https://via.placeholder.com/150</td>
-                    <td class="actions-btn">
-                        <a href="../editProduct/editProduct.html" class="edit-btn">Chỉnh sửa</a>
-                    </td>
-                </tr>
-                <!-- Add more product rows as needed -->
-            </tbody>
+            <tbody id="productTableBody"></tbody>
         </table>
+        <div id="pagination" style="padding: 15px;"></div>
     </div>
+
 
     <script>
         // JavaScript to handle select all checkbox functionality
@@ -258,9 +247,9 @@
         });
     </script>
 
-<script src="../checkAuth.js"></script>
-<script src="../header.js"></script>
-
+    <script src="../checkAuth.js"></script>
+    <script src="../header.js"></script>
+    <script src="../product/product.js"></script>
 
 </body>
 
