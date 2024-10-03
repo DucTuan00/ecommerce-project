@@ -8,6 +8,15 @@ exports.getProducts = (req, res) => {
     });
 };
 
+// Lấy 1 sản phẩm
+exports.getProductById = (req, res) => {
+    const { id } = req.params;
+    productModel.getProductById(id, (err, results) => {
+        if (err) return res.status(500).json({ message: 'Error getting product' });
+        res.json(results);
+    })
+}
+
 // Thêm sản phẩm
 exports.createProduct = (req, res) => {
     const { name, price, description, category_id, imagePath } = req.body;
