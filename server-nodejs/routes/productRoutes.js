@@ -21,8 +21,6 @@ router.get('/search', productController.searchProducts);
 
 router.get('/:id', productController.getProductById);
 
-router.get('/:id', productController.getProductById);
-
 router.post('/', authMiddleware(['1']), upload.single('image'), productController.createProduct);
 
 
