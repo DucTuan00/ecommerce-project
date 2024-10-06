@@ -1,87 +1,111 @@
+// product.js
 document.addEventListener('DOMContentLoaded', function () {
-    let products = []; // Biến để lưu tất cả dữ liệu sản phẩm từ BE
-    const itemsPerPage = 5; // Số bản ghi mỗi trang
+    let products = []; // Mảng lưu trữ tất cả sản phẩm
+    const itemsPerPage = 5; // Số sản phẩm hiển thị trên mỗi trang
     let currentPage = 1; // Trang hiện tại
-    let isLoading = true; // Biến theo dõi trạng thái loading
+    let isLoading = true; // Trạng thái loading
+    let selectedProductId = null; // ID của sản phẩm được chọn
+    const deleteButton = document.getElementById('deleteButton');
+    const productTableBody = document.getElementById('productTableBody');
+    const paginationContainer = document.getElementById('pagination');
 
-    // Khi dữ liệu đang tải, hiển thị chỉ báo loading
-    function renderLoading() {
-        const productTableBody = document.getElementById('productTableBody');
-        productTableBody.innerHTML = '<tr><td colspan="7">Đang tải dữ liệu...</td></tr>';
+    // Kiểm tra sự tồn tại của các phần tử DOM quan trọng
+    if (!deleteButton || !productTableBody || !paginationContainer) {
+        console.error('Một hoặc nhiều phần tử DOM quan trọng không tồn tại');
+        return;
     }
 
-    // Gọi API để lấy danh sách sản phẩm
-    fetch('http://localhost:3000/api/products')
-        .then(response => response.json())
-        .then(data => {
-            products = data; // Lưu dữ liệu vào biến
-            isLoading = false;
-            renderTable(); // Render bảng với dữ liệu ban đầu
-            renderPagination(); // Tạo các nút phân trang
-        })
-        .catch(error => {
-            console.error('Lỗi khi gọi API:', error);
-        });
+    // Lấy token từ cookie
+    const token = document.cookie.split('; ').find(row => row.startsWith('token='));
+    const Token = token ? token.split('=')[1] : '';
 
+    // Hàm fetch dữ liệu sản phẩm từ API
+    function fetchProducts() {
+        fetch('http://localhost:3000/api/products')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                products = data;
+                isLoading = false;
+                renderTable();
+                renderPagination();
+            })
+            .catch(error => {
+                console.error('Lỗi khi gọi API:', error);
+                isLoading = false;
+                renderTable(); // Vẫn render table để hiển thị thông báo lỗi
+            });
+    }
+
+    // Hàm render bảng sản phẩm
     function renderTable() {
-        const productTableBody = document.getElementById('productTableBody');
-        productTableBody.innerHTML = ''; // Xóa nội dung cũ
+        productTableBody.innerHTML = '';
 
-        // Nếu đang tải hoặc không có sản phẩm nào
         if (isLoading) {
-            renderLoading();
-            return;
-        } else if (products.length === 0) {
-            productTableBody.innerHTML = '<tr><td colspan="7 ">Không có sản phẩm nào.</td></tr>';
+            productTableBody.innerHTML = '<tr><td colspan="7">Đang tải dữ liệu...</td></tr>';
             return;
         }
 
-        // Tính toán bản ghi bắt đầu và kết thúc cho trang hiện tại
+        if (products.length === 0) {
+            productTableBody.innerHTML = '<tr><td colspan="7">Không có sản phẩm nào.</td></tr>';
+            return;
+        }
+
         const start = (currentPage - 1) * itemsPerPage;
         const end = start + itemsPerPage;
         const productsToShow = products.slice(start, end);
 
-        // Tạo các hàng cho sản phẩm trong phạm vi này
         productsToShow.forEach(product => {
             const row = document.createElement('tr');
             row.innerHTML = `
-        <td class="select-product"><input type="checkbox" class="select-item"></td>
-        <td class="actions-btn">
-            <a href="../editProduct/editProduct.html?id=${product.id}" class="edit-btn">
-                <i class="fas fa-edit"></i>
-            </a>
-        </td>
-        <td>${product.name}</td>
-        <td>${new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(product.price)}</td>
-        <td>${product.category_id || 'Không xác định'}</td>
-        <td>${product.description}</td>
-    `;
+                <td class="select-product">
+                    <input type="radio" name="selectProduct" class="select-item" value="${product.id}">
+                </td>
+                <td class="actions-btn">
+                    <a href="../editProduct/editProduct.html?id=${product.id}" class="edit-btn">
+                        <i class="fas fa-edit"></i>
+                    </a>
+                </td>
+                <td>${product.name}</td>
+                <td>${new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(product.price)}</td>
+                <td>${product.category_id || 'Không xác định'}</td>
+                <td>${product.description}</td>
+            `;
             productTableBody.appendChild(row);
+        });
+
+        // Thêm event listener cho radio buttons
+        const radioButtons = document.querySelectorAll('.select-item');
+        radioButtons.forEach(radio => {
+            radio.addEventListener('change', function () {
+                selectedProductId = this.value;
+                console.log("Selected Product ID:", selectedProductId);
+                deleteButton.disabled = false;
+            });
         });
     }
 
+    // Hàm render phân trang
     function renderPagination() {
-        const paginationContainer = document.getElementById('pagination');
-        paginationContainer.innerHTML = ''; // Xóa nội dung cũ
-
+        paginationContainer.innerHTML = '';
         const totalPages = Math.ceil(products.length / itemsPerPage);
 
-        // Tạo các nút phân trang
         for (let i = 1; i <= totalPages; i++) {
             const pageButton = document.createElement('button');
             pageButton.textContent = i;
             pageButton.classList.add('page-btn');
             if (i === currentPage) {
-                pageButton.classList.add('active'); // Đánh dấu trang hiện tại
+                pageButton.classList.add('active');
             }
-
-            // Thêm sự kiện khi bấm vào nút trang
             pageButton.addEventListener('click', () => {
                 currentPage = i;
-                renderTable(); // Render lại bảng khi trang thay đổi
-                updateActivePagination(); // Cập nhật lại trạng thái active cho nút trang
+                renderTable();
+                updateActivePagination();
             });
-
             paginationContainer.appendChild(pageButton);
         }
     }
@@ -90,12 +114,58 @@ document.addEventListener('DOMContentLoaded', function () {
     function updateActivePagination() {
         const pageButtons = document.querySelectorAll('.page-btn');
         pageButtons.forEach((button, index) => {
-            // Xóa tất cả class 'active' trước
-            button.classList.remove('active');
-            // Chỉ thêm class 'active' cho nút của trang hiện tại
-            if (index + 1 === currentPage) {
-                button.classList.add('active');
-            }
+            button.classList.toggle('active', index + 1 === currentPage);
         });
     }
+
+    // Hàm xóa sản phẩm
+    function deleteProduct(id) {
+        if (!id) {
+            console.error('No product ID provided for deletion');
+            alert('Có lỗi xảy ra: Không có ID sản phẩm để xóa.');
+            return;
+        }
+
+        fetch(`http://localhost:3000/api/products/${id}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${Token}`
+            },
+        })
+            .then(response => {
+                if (!response.ok) {
+                    return response.text().then(text => {
+                        throw new Error(`HTTP error! status: ${response.status}, message: ${text}`);
+                    });
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Xóa thành công:', data);
+                products = products.filter(product => product.id !== id);
+                selectedProductId = null;
+                deleteButton.disabled = true;
+                renderTable();
+                renderPagination();
+                alert('Sản phẩm đã được xóa thành công.');
+            })
+            .catch(error => {
+                console.error('Chi tiết lỗi:', error);
+            });
+    }
+
+    // Event listener cho nút xóa
+    deleteButton.addEventListener('click', function () {
+        if (selectedProductId) {
+            if (confirm('Bạn có chắc chắn muốn xóa sản phẩm này?')) {
+                deleteProduct(selectedProductId);
+            }
+        } else {
+            alert('Vui lòng chọn một sản phẩm để xóa.');
+        }
+    });
+
+    // Khởi tạo dữ liệu ban đầu
+    fetchProducts();
 });

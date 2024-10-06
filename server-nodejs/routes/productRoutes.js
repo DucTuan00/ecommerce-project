@@ -21,7 +21,7 @@ router.get('/search', productController.searchProducts);
 
 router.get('/:id', productController.getProductById);
 
-router.post('/', authMiddleware(['1']), upload.single('image'), productController.createProduct);
+router.post('/', authMiddleware(['1']), upload.fields([{ name: 'image', maxCount: 1 }]), productController.createProduct);
 
 
 //upload ảnh
