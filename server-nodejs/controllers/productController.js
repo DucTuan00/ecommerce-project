@@ -45,10 +45,40 @@ exports.createProduct = (req, res) => {
 };
 
 // Cập nhật sản phẩm
+// Thêm sản phẩm
+exports.createProduct = (req, res) => {
+    const { name, price, description, category_id } = req.body;
+    const image = req.files.image[0] ? req.files.image[0].path : null;
+
+    console.log("req.body", req.body);
+    console.log("image", image);
+
+    productModel.createProduct(name, price, image, description, category_id, (err, results) => {
+        if (err) {
+            console.error(err);
+            return res.status(500).json({ message: 'Error creating product' });
+        }
+
+        res.status(201).json({
+            id: results.insertId,
+            name,
+            price,
+            image,
+            description,
+            category_id,
+            message: 'Product created successfully'
+        });
+    });
+};
+
+// Cập nhật sản phẩm
 exports.updateProduct = (req, res) => {
     const { id } = req.params;
-    const { name, price, description, category_id, imagePath } = req.body;
-    const image = imagePath || null;
+    const { name, price, description, category_id } = req.body;
+    const image = req.files.image[0] ? req.files.image[0].path : null;
+
+    console.log("req.body", req.body);
+    console.log("image", image);
 
     productModel.updateProduct(id, name, price, image, description, category_id, (err, results) => {
         if (err) return res.status(500).json({ message: 'Error updating product' });

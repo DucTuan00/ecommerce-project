@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     let products = []; // Biến để lưu tất cả dữ liệu sản phẩm từ BE
     const itemsPerPage = 5; // Số bản ghi mỗi trang
     let currentPage = 1; // Trang hiện tại
@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', function() {
             renderLoading();
             return;
         } else if (products.length === 0) {
-            productTableBody.innerHTML = '<tr><td colspan="7">Không có sản phẩm nào.</td></tr>';
+            productTableBody.innerHTML = '<tr><td colspan="7 ">Không có sản phẩm nào.</td></tr>';
             return;
         }
 
@@ -45,16 +45,17 @@ document.addEventListener('DOMContentLoaded', function() {
         productsToShow.forEach(product => {
             const row = document.createElement('tr');
             row.innerHTML = `
-                <td class="select-product"><input type="checkbox" class="select-item"></td>
-                <td>${product.name}</td>
-                <td>${new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(product.price)}</td>
-                <td>${product.category_id || 'Không xác định'}</td>
-                <td>${product.description}</td>
-                <td><img src="${product.image}" alt="${product.name}" width="50"></td>
-                <td class="actions-btn">
-                    <a href="../editProduct/editProduct.html?id=${product.id}" class="edit-btn">Chỉnh sửa</a>
-                </td>
-            `;
+        <td class="select-product"><input type="checkbox" class="select-item"></td>
+        <td class="actions-btn">
+            <a href="../editProduct/editProduct.html?id=${product.id}" class="edit-btn">
+                <i class="fas fa-edit"></i>
+            </a>
+        </td>
+        <td>${product.name}</td>
+        <td>${new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(product.price)}</td>
+        <td>${product.category_id || 'Không xác định'}</td>
+        <td>${product.description}</td>
+    `;
             productTableBody.appendChild(row);
         });
     }

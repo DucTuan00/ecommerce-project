@@ -27,7 +27,7 @@ router.post('/', authMiddleware(['1']), upload.single('image'), productControlle
 //upload ảnh
 router.post('/upload', authMiddleware(['1']), upload.single('image'), productController.uploadImage);
 
-router.put('/:id', authMiddleware(['1']), productController.updateProduct);
+router.patch('/:id', authMiddleware(['1']), upload.fields([{ name: 'image', maxCount: 1 }]), productController.updateProduct);
 
 router.delete('/:id', authMiddleware(['1']), productController.deleteProduct);
 
