@@ -5,6 +5,10 @@ const authMiddleware = require('../middleware/authMiddleware');
 
 router.get('/', categoryController.getCategories);
 
+router.get('/:id', categoryController.getCategoryById);
+
+router.get('/category/:id', categoryController.getCategoryName);
+
 //id admin = 1 nên authMiddleware(['1'])
 router.post('/', authMiddleware(['1']), categoryController.createCategory);
 

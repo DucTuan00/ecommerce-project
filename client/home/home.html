@@ -12,6 +12,7 @@
             padding: 0;
             background-color: #f8f8f8;
         }
+
         .header {
             display: flex;
             justify-content: space-between;
@@ -20,11 +21,13 @@
             background-color: #fa541c;
             padding: 20px 30px 25px 30px;
         }
+
         .logo {
             color: white;
             font-size: 24px;
             font-weight: bold;
         }
+
         .search-bar {
             display: flex;
             align-items: center;
@@ -32,20 +35,26 @@
             margin: 0 20px;
             border-radius: 25px;
         }
-        .search-bar select, .search-bar input {
+
+        .search-bar select,
+        .search-bar input {
             padding: 8px;
             border: 1px solid #ddd;
             border-radius: 25px;
         }
+
         .search-bar input {
             flex-grow: 1;
             margin-left: 10px;
         }
+
         .header-actions {
             display: flex;
             align-items: center;
         }
-        .header-actions button, .header-actions a {
+
+        .header-actions button,
+        .header-actions a {
             margin-left: 15px;
             padding: 8px 15px;
             border: none;
@@ -55,6 +64,7 @@
             text-decoration: none;
             border-radius: 5px;
         }
+
         .categories {
             display: flex;
             justify-content: space-around;
@@ -63,24 +73,30 @@
             border-bottom: 1px solid #ddd;
             margin-bottom: 30px;
         }
+
         .categories a {
             text-decoration: none;
             color: #333;
             padding: 5px 10px;
         }
-        .categories a:hover, .categories a.active {
+
+        .categories a:hover,
+        .categories a.active {
             color: #ff6600;
             border-bottom: 2px solid #ff6600;
         }
+
         .slideshow-container {
             position: relative;
             max-width: 80%;
             margin: 20px auto;
         }
+
         .slideshow img {
             width: 100%;
             border-radius: 10px;
         }
+
         .category-layout {
             display: flex;
             width: 100%;
@@ -88,6 +104,7 @@
             align-items: flex-start;
             margin-top: 20px;
         }
+
         .category-highlights {
             display: flex;
             justify-content: space-between;
@@ -95,17 +112,20 @@
             gap: 8px;
             width: 80%;
         }
+
         .category-card {
             flex: 1;
             position: relative;
             overflow: hidden;
             border-radius: 10px;
         }
+
         .category-card img {
             width: 100%;
             height: 150px;
             object-fit: cover;
         }
+
         .category-card .category-title {
             position: absolute;
             bottom: 10px;
@@ -114,6 +134,7 @@
             font-size: 25px;
             font-weight: bold;
         }
+
         .main-content-layout {
             display: flex;
             width: 100%;
@@ -121,35 +142,42 @@
             align-items: flex-start;
             margin-top: 20px;
         }
+
         .main-content {
             display: flex;
             width: 80%;
             background-color: #fff;
             border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
+
         .menu {
             width: 20%;
             padding: 20px;
             border-right: 1px solid #ddd;
         }
+
         .menu h3 {
             margin-bottom: 15px;
             font-size: 18px;
             color: #333;
         }
+
         .menu ul {
             list-style-type: none;
             padding: 0;
         }
+
         .menu li {
             padding: 10px 0;
             cursor: pointer;
             transition: color 0.3s ease;
         }
+
         .menu li:hover {
             color: #ff6600;
         }
+
         .products-container {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -157,32 +185,38 @@
             padding: 20px;
             width: 80%;
         }
+
         .product-item {
             background-color: #fff;
             padding: 15px;
             text-align: center;
             border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
+
         .product-item:hover {
             transform: translateY(-5px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
+
         .product-item img {
             width: 100%;
             border-radius: 8px;
         }
+
         .product-name {
             font-size: 16px;
             margin: 10px 0;
             color: #333;
         }
+
         .product-price {
             color: #ff6600;
             font-size: 18px;
             font-weight: bold;
         }
+
         .add-product-icon {
             color: #ff6600;
             font-size: 18px;
@@ -201,9 +235,7 @@
     <!-- Header -->
     <header class="header">
         <div class="logo">E-commerce</div>
-        <div class="search-bar">
-            <input type="text" placeholder="Search anything">
-        </div>
+
         <div class="header-actions">
             <a href="../login/login.html">Đăng xuất</a>
             <a href="#"><i class="fas fa-shopping-cart"></i> Shopping</a>
@@ -229,23 +261,23 @@
 
     <div class="category-layout">
         <div class="category-highlights">
-            <div class="category-card">
+            <div class="category-card" data-category-id="1">
                 <img src="../img/pan.png" alt="Kitchen">
                 <div class="category-title">Chảo</div>
             </div>
-            <div class="category-card">
+            <div class="category-card" data-category-id="2">
                 <img src="../img/pot.png" alt="Home & Living">
                 <div class="category-title">Nồi</div>
             </div>
-            <div class="category-card">
+            <div class="category-card" data-category-id="3">
                 <img src="../img/vacuumCleaner.png" alt="Art & Collectibles">
                 <div class="category-title">Máy hút bụi</div>
             </div>
-            <div class="category-card">
+            <div class="category-card" data-category-id="4">
                 <img src="../img/gasStove.png" alt="Art & Collectibles">
                 <div class="category-title">Bếp</div>
             </div>
-            <div class="category-card">
+            <div class="category-card" data-category-id="5">
                 <img src="../img/blender.png" alt="Art & Collectibles">
                 <div class="category-title">Máy xay</div>
             </div>
@@ -257,44 +289,16 @@
         <div class="main-content">
             <!-- Menu for product categories -->
             <div class="menu">
-                <h3>Danh mục sản phẩm</h3>
+                <input type="text" placeholder="Tìm kiếm sản phẩm..." style="width: 100%; height: 25px; border-radius: 25px;">
+                <h3>Sắp xếp giá</h3>
                 <ul>
-                    <li>Chảo</li>
-                    <li>Nồi</li>
-                    <li>Bếp từ</li>
-                    <li>Máy xay sinh tố</li>
-                    <li>Máy hút bụi</li>
+                    <li id="sort-asc">Từ thấp tới cao</li>
+                    <li id="sort-desc">Từ cao tới thấp</li>
                 </ul>
             </div>
 
             <!-- Product Section -->
-            <div class="products-container">
-                <div class="product-item">
-                    <img src="https://via.placeholder.com/300x300.png?text=Sản+Phẩm+1" alt="Sản phẩm 1">
-                    <div class="product-name">Sản phẩm 1</div>
-                    <div class="product-price">500.000đ</div>
-                </div>
-                <div class="product-item">
-                    <img src="https://via.placeholder.com/300x300.png?text=Sản+Phẩm+2" alt="Sản phẩm 2">
-                    <div class="product-name">Sản phẩm 2</div>
-                    <div class="product-price">800.000đ</div>
-                </div>
-                <div class="product-item">
-                    <img src="https://via.placeholder.com/300x300.png?text=Sản+Phẩm+3" alt="Sản phẩm 3">
-                    <div class="product-name">Sản phẩm 3</div>
-                    <div class="product-price">1.200.000đ</div>
-                </div>
-                <div class="product-item">
-                    <img src="https://via.placeholder.com/300x300.png?text=Sản+Phẩm+4" alt="Sản phẩm 4">
-                    <div class="product-name">Sản phẩm 4</div>
-                    <div class="product-price">1.500.000đ</div>
-                </div>
-                <div class="product-item">
-                    <img src="https://via.placeholder.com/300x300.png?text=Sản+Phẩm+4" alt="Sản phẩm 5">
-                    <div class="product-name">Sản phẩm 5</div>
-                    <div class="product-price">4.500.000đ</div>
-                </div>
-            </div>
+            <div class="products-container" id="products-container"></div>
         </div>
     </div>
 

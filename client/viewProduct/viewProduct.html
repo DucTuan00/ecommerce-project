@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Xem Sản Phẩm - Đồ Gia Dụng</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="logo">E-commerce</div>
+        <div class="header-actions">
+            <a href="../login/login.html">Đăng xuất</a>
+            <a href="#"><i class="fas fa-shopping-cart"></i> Shopping</a>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="categories">
+        <a href="../home/home.html">Trang chủ</a>
+        <a href="../product/product.html" class="active">Sản phẩm</a>
+        <a href="../order/order.html">Đơn hàng</a>
+        <a href="#">Giới thiệu</a>
+    </nav>
+
+    <!-- Product Information -->
+    <div class="container">
+        <h2>Thông Tin Sản Phẩm</h2>
+        <div class="product-details">
+            <div class="product-image">
+                <img src="https://via.placeholder.com/400x400.png?text=Product+Image" alt="Product Image">
+            </div>
+            <div class="product-info">
+                <h3 class="product-name"></h3>
+                <p class="product-price"></p>
+                <p class="product-category"></p>
+                <p class="product-description"></p>
+                <div class="quantity-container">
+                    <button class="quantity-decrement">-</button>
+                    <input type="number" class="quantity-input" value="1" min="1">
+                    <button class="quantity-increment">+</button>
+                </div>
+                <button class="add-to-cart">Thêm vào giỏ hàng</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://kit.fontawesome.com/91c8b57a30.js" crossorigin="anonymous"></script>
+    <script src="./viewProduct.js"></script>
+</body>
+</html>

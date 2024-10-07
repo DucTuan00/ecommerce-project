@@ -2,20 +2,23 @@
 function getCookie(name) {
     const value = `; ${document.cookie}`;
     const parts = value.split(`; ${name}=`);
-    if (parts.length === 2) return parts.pop().split(';').shift();
-    return null;
+    return parts.length === 2 ? parts.pop().split(';').shift() : null;
 }
+
+// Biến toàn cục để lưu danh sách sản phẩm
+let productList = [];
 
 // Kiểm tra token khi trang load
 window.onload = function() {
-    const token = getCookie('token'); // Lấy cookie có tên 'csrftoken'
+    const token = getCookie('token'); // Lấy cookie có tên 'token'
 
     if (!token) {
         // Chuyển hướng tới trang login nếu không có token
         window.location.href = '../login/login.html';
     } else {
-        // Nếu có token, bắt đầu slideshow
+        // Nếu có token, bắt đầu slideshow và fetch sản phẩm
         initSlideshow();
+        fetchProducts(); // Lấy tất cả sản phẩm khi tải trang
     }
 };
 
@@ -38,7 +41,82 @@ function initSlideshow() {
     setInterval(showSlides, 3000);
 }
 
+// Hàm fetch dữ liệu sản phẩm từ API
+function fetchProducts() {
+    fetch('http://localhost:3000/api/products', {
+        headers: {
+            'Authorization': `Bearer ${getCookie('token')}`
+        }
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(data => {
+        productList = data; // Lưu tất cả sản phẩm vào mảng
+        renderProducts(productList); // Hiển thị sản phẩm ban đầu
+    })
+    .catch(error => {
+        console.error('Lỗi khi gọi API:', error);
+    });
+}
 
-document.querySelector('.add-product-icon').addEventListener('click', function() {
-    window.location.href = '../addProduct/addProduct.html';
+// Hàm render sản phẩm
+function renderProducts(products) {
+    const productsContainer = document.querySelector('.products-container');
+    productsContainer.innerHTML = ''; // Xóa nội dung hiện tại
+
+    products.forEach(product => {
+        const productItem = document.createElement('div');
+        productItem.classList.add('product-item');
+
+        const productImage = document.createElement('img');
+        productImage.src = `../../server-nodejs/${product.image}`; 
+        productImage.alt = product.name;
+
+        const productName = document.createElement('div');
+        productName.classList.add('product-name');
+        productName.textContent = product.name;
+
+        const productPrice = document.createElement('div');
+        productPrice.classList.add('product-price');
+        productPrice.textContent = `${product.price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}`;
+
+        // Gắn sự kiện click để chuyển hướng
+        productItem.addEventListener('click', function() {
+            window.location.href = `../viewProduct/viewProduct.html?id=${product.id}`;
+        });
+
+        productItem.appendChild(productImage);
+        productItem.appendChild(productName);
+        productItem.appendChild(productPrice);
+
+        productsContainer.appendChild(productItem);
+    });
+}
+
+// Thêm sự kiện click vào các thẻ .category-card
+document.querySelectorAll('.category-card').forEach(card => {
+    card.addEventListener('click', function() {
+        const categoryId = card.getAttribute('data-category-id'); // Lấy ID loại sản phẩm
+        
+        // Gọi API để lấy sản phẩm theo loại tương ứng
+        fetch(`http://localhost:3000/api/categories/${categoryId}`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            productList = data; // Cập nhật danh sách sản phẩm
+            renderProducts(productList); // Hiển thị sản phẩm theo loại
+        })
+        .catch(error => {
+            console.error('Lỗi khi gọi API:', error);
+        });
+    });
 });
+

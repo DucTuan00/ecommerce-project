@@ -16,9 +16,25 @@ const deleteCategory = (id, callback) => {
     db.query('DELETE FROM categories WHERE id = ?', [id], callback);
 };
 
+const getProductsByCategoryId = (categoryId, callback) => {
+    const query = `
+        SELECT products.* 
+        FROM products 
+        WHERE products.category_id = ?
+    `;
+    db.query(query, [categoryId], callback);
+};
+
+const getCategoryById = (id, callback) => {
+    const query = 'SELECT * FROM categories WHERE id = ?';
+    db.query(query, [id], callback);
+};
+
 module.exports = {
     getAllCategories,
     createCategory,
     updateCategory,
-    deleteCategory
+    deleteCategory,
+    getProductsByCategoryId,
+    getCategoryById,
 };
