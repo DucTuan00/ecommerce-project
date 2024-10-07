@@ -3,7 +3,7 @@ const authModel = require('../models/authModel');
 const productModel = require('../models/productModel');
 
 exports.createCart = (req, res) => {
-    const { user_id } = req.params;
+    const user_id = req.userId;
     const { product_id, quantity } = req.body;
 
     // Kiểm tra người dùng có tồn tại không
@@ -33,7 +33,7 @@ exports.createCart = (req, res) => {
 
 // Sửa giỏ hàng
 exports.updateCart = (req, res) => {
-    const user_id = req.params.user_id || req.params[0];
+    const user_id = req.userId;
     const id = req.params.id || req.params[1];
     const { product_id, quantity } = req.body;
 
@@ -77,7 +77,7 @@ exports.updateCart = (req, res) => {
 
 // Xóa giỏ hàng
 exports.deleteCart = (req, res) => {
-    const user_id = req.params.user_id || req.params[0];
+    const user_id = req.userId;
     const id = req.params.id || req.params[1];
 
     // Kiểm tra người dùng có tồn tại không
@@ -107,7 +107,7 @@ exports.deleteCart = (req, res) => {
 
 // Lấy tất cả giỏ hàng từ id người dùng
 exports.getCart = (req, res) => {
-    const { user_id } = req.params;
+    const user_id = req.userId;
 
     // Kiểm tra người dùng có tồn tại không
     authModel.getUserById(user_id, (err, userExists) => {
