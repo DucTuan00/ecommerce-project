@@ -11,7 +11,10 @@ const authorize = (roles = []) => {
         jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
             if (err) return res.status(403).json({ message: 'Failed to authenticate token' });
 
-            db.query('SELECT role_id FROM users WHERE id = ?', [decoded.id], (err, results) => {
+            const userId = decoded.id;
+            req.userId = userId; // Lưu userId vào req để controller có thể sử dụng
+
+            db.query('SELECT role_id FROM users WHERE id = ?', [userId], (err, results) => {
                 if (err || results.length === 0) return res.status(403).json({ message: 'Unauthorized' });
 
                 const userRole = results[0].role_id;
