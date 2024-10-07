@@ -190,22 +190,11 @@
 </head>
 
 <body>
+    <!-- Placeholder for header -->
+    <div id="header-container"></div>
 
-    <!-- Header -->
-    <header class="header">
-        <div class="logo">E-commerce</div>
-        <div class="header-actions">
-            <a href="#">Đăng xuất</a>
-            <a href="#"><i class="fas fa-shopping-cart"></i> Giỏ hàng</a>
-        </div>
-    </header>
-
-    <nav class="categories">
-        <a href="../home/home.html">Trang chủ</a>
-        <a href="../product/product.html" >Sản phẩm</a>
-        <a href="#" class="active">Đơn hàng</a>
-        <a href="#">Giới thiệu</a>
-    </nav>
+    <!-- Placeholder for nav -->
+    <div id="nav-container"></div>
 
     <!-- Main Content -->
     <div class="container">
@@ -250,6 +239,23 @@
             });
         });
     </script>
+
+<script>
+    // Load header and nav
+    document.addEventListener("DOMContentLoaded", function () {
+        fetch('../header.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('header-container').innerHTML = data;
+            });
+
+        fetch('../nav.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('nav-container').innerHTML = data;
+            });
+    });
+</script>
 
 <script src="../checkAuth.js"></script>
 

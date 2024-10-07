@@ -125,21 +125,11 @@
     </style>
 </head>
 <body>
-    <!-- Header -->
-    <header class="header">
-        <div class="logo">E-commerce</div>
-        <div class="header-actions">
-            <a href="../login/login.html">Đăng xuất</a>
-            <a href="#"><i class="fas fa-shopping-cart"></i> Shopping</a>
-        </div>
-    </header>
+    <!-- Placeholder for header -->
+    <div id="header-container"></div>
 
-    <nav>
-        <a href="../home/home.html">Trang chủ</a>
-        <a href="../product/product.html" style="color: #ff6600; border-bottom: 2px solid #ff6600;">Sản phẩm</a>
-        <a href="../order/order.html">Đơn hàng</a>
-        <a href="#">Giới thiệu</a>
-    </nav>
+    <!-- Placeholder for nav -->
+    <div id="nav-container"></div>
 
     <!-- Thêm Sản Phẩm -->
     <div class="container">
@@ -179,6 +169,23 @@
             <button type="submit">Thêm sản phẩm</button>
         </form>
     </div>
+
+    <script>
+        // Load header and nav
+        document.addEventListener("DOMContentLoaded", function () {
+            fetch('../header.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('header-container').innerHTML = data;
+                });
+
+            fetch('../nav.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('nav-container').innerHTML = data;
+                });
+        });
+    </script>
 
     <script src="../checkAuth.js"></script>
     <script src="../header.js"></script>

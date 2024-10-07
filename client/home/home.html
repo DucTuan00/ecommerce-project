@@ -252,25 +252,11 @@
 </head>
 
 <body>
+    <!-- Placeholder for header -->
+    <div id="header-container"></div>
 
-    <!-- Header -->
-    <header class="header">
-        <div class="logo">E-commerce</div>
-
-        <div class="header-actions">
-            <a href="../login/login.html">Đăng xuất</a>
-            <a href="../cart/cart.html"><i class="fas fa-shopping-cart"></i> Shopping</a>
-        </div>
-    </header>
-
-    <nav class="categories">
-        <a href="#"></a><a href="#"></a>
-        <a href="../home/home.html" class="active">Trang chủ</a>
-        <a href="../product/product.html">Sản phẩm</a>
-        <a href="../order/order.html">Đơn hàng</a>
-        <a href="#">Giới thiệu</a>
-        <a href="#"></a><a href="#"></a>
-    </nav>
+    <!-- Placeholder for nav -->
+    <div id="nav-container"></div>
 
 
     <div class="slideshow-container">
@@ -316,6 +302,22 @@
         </div>
     </div>
 
+    <script>
+        // Load header and nav
+        document.addEventListener("DOMContentLoaded", function () {
+            fetch('../header.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('header-container').innerHTML = data;
+                });
+
+            fetch('../nav.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('nav-container').innerHTML = data;
+                });
+        });
+    </script>
     <script src="home.js"></script>
     <script src="../header.js"></script>
 </body>

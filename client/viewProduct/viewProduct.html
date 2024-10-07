@@ -7,23 +7,11 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Header -->
-    <header class="header">
-        <div class="logo">E-commerce</div>
-        <div class="header-actions">
-            <a href="../login/login.html">Đăng xuất</a>
-            <a href="#"><i class="fas fa-shopping-cart"></i> Shopping</a>
-        </div>
-    </header>
+    <!-- Placeholder for header -->
+    <div id="header-container"></div>
 
-    <!-- Navigation -->
-    <nav class="categories">
-        <a href="../home/home.html">Trang chủ</a>
-        <a href="../product/product.html" class="active">Sản phẩm</a>
-        <a href="../order/order.html">Đơn hàng</a>
-        <a href="#">Giới thiệu</a>
-    </nav>
-
+    <!-- Placeholder for nav -->
+    <div id="nav-container"></div>
     <!-- Product Information -->
     <div class="container">
         <h2>Thông Tin Sản Phẩm</h2>
@@ -45,6 +33,23 @@
             </div>
         </div>
     </div>
+
+    <script>
+        // Load header and nav
+        document.addEventListener("DOMContentLoaded", function () {
+            fetch('../header.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('header-container').innerHTML = data;
+                });
+
+            fetch('../nav.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('nav-container').innerHTML = data;
+                });
+        });
+    </script>
 
     <script src="https://kit.fontawesome.com/91c8b57a30.js" crossorigin="anonymous"></script>
     <script src="./viewProduct.js"></script>
