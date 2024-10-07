@@ -25,7 +25,7 @@ const login = (username, password, callback) => {
             if(err) return callback(err);
             if(!match) return callback(new Error('Invalid credentials'));
 
-            const token = jwt.sign({ id: user.id, username: user.username }, process.env.JWT_SECRET, { expiresIn: '1h' });
+            const token = jwt.sign({ id: user.id, username: user.username }, process.env.JWT_SECRET, { expiresIn: '5h' });
             callback(null, { id: user.id, role_id: user.role_id, token });
         });
     });
