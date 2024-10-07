@@ -29,13 +29,13 @@ exports.login = (req, res) => {
             return res.status(500).json({ message: 'Có lỗi trong quá trình đăng nhập' });
         }
 
-        //  // Phát token vào cookie
-        //  res.cookie('token', user.token, {
-        //     httpOnly: false,  
-        //     secure: false,    
-        //     sameSite: 'none', 
-        //     maxAge: 24 * 60 * 60 * 1000 
-        // });
+        // Phát token vào cookie
+        res.cookie('token', user.token, {
+            httpOnly: false, 
+            secure: false,  
+            sameSite: 'Lax', 
+            maxAge: 24 * 60 * 60 * 1000 
+        });
 
         res.json({
             id: user.id,

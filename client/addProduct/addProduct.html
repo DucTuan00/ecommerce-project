@@ -171,7 +171,6 @@
     </div>
 
     <script>
-        // Load header and nav
         document.addEventListener("DOMContentLoaded", function () {
             fetch('../header.html')
                 .then(response => response.text())
@@ -183,6 +182,7 @@
                 .then(response => response.text())
                 .then(data => {
                     document.getElementById('nav-container').innerHTML = data;
+                    checkAndDisplayProductLink();
                 });
         });
     </script>
@@ -190,6 +190,7 @@
     <script src="../checkAuth.js"></script>
     <script src="../header.js"></script>
     <script src="addProduct.js"></script>
+    <script src="../check-permission.js"></script>
 
 
 </body>
