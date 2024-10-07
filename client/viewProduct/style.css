@@ -67,7 +67,7 @@ body {
 .container {
     margin: 20px auto;
     height: 80vh;
-    max-width: 80%;
+    max-width: 70%;
     padding: 20px;
     background-color: white;
     border-radius: 10px;
@@ -84,11 +84,11 @@ h2 {
 
 .product-details {
     display: flex;
-    gap: 40px;
+    gap: 70px;
 }
 
 .product-image img {
-    max-width: 100%;
+    max-width: 120%;
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
@@ -157,7 +157,7 @@ h2 {
 }
 
 .add-to-cart {
-    width: 100%;
+    width: 90%;
     height: 40px;
     border: none;
     border-radius: 5px;

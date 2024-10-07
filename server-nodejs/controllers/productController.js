@@ -93,21 +93,35 @@ exports.uploadImage = (req, res) => {
     });
 };
 
-// tìm kiếm sản phẩm
+// Tìm kiếm sản phẩm
 exports.searchProducts = (req, res) => {
-    const { searchTerm } = req.query; // chuỗi sau dấu '?' sẽ được gán cho searchTerm
+    const { term } = req.body; // Lấy trực tiếp term từ req.body
+    console.log('searchTerm:', term); // In ra giá trị của searchTerm để kiểm tra
 
-    if (searchTerm) {
-        // Nếu có searchTerm, tìm kiếm sản phẩm theo tên hoặc mô tả
-        productModel.searchProducts(searchTerm, (err, products) => {
-            if (err) return res.status(500).json({ message: 'Error searching products' });
-            res.status(200).json(products);
+    if (term) {
+        // Nếu có term, tìm kiếm sản phẩm theo tên hoặc mô tả
+        productModel.searchProducts(term, (err, products) => {
+            if (err) {
+                console.error('Error searching products:', err);
+                return res.status(500).json({ message: 'Error searching products' });
+            }
+
+            if (products.length === 0) {
+                // Nếu không có sản phẩm nào, trả về thông báo
+                return res.status(404).json({ message: 'Không có sản phẩm nào' });
+            }
+
+            // Trả về danh sách sản phẩm tìm được
+            return res.status(200).json(products);
         });
     } else {
-        // Nếu không có searchTerm, trả về tất cả sản phẩm
+        // Nếu không có term, trả về tất cả sản phẩm
         productModel.getAllProducts((err, products) => {
-            if (err) return res.status(500).json({ message: 'Error fetching products' });
-            res.status(200).json(products);
+            if (err) {
+                console.error('Error fetching products:', err);
+                return res.status(500).json({ message: 'Error fetching products' });
+            }
+            return res.status(200).json(products);
         });
     }
 };

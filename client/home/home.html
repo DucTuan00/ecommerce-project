@@ -28,26 +28,6 @@
             font-weight: bold;
         }
 
-        .search-bar {
-            display: flex;
-            align-items: center;
-            flex-grow: 1;
-            margin: 0 20px;
-            border-radius: 25px;
-        }
-
-        .search-bar select,
-        .search-bar input {
-            padding: 8px;
-            border: 1px solid #ddd;
-            border-radius: 25px;
-        }
-
-        .search-bar input {
-            flex-grow: 1;
-            margin-left: 10px;
-        }
-
         .header-actions {
             display: flex;
             align-items: center;
@@ -140,7 +120,6 @@
             width: 100%;
             justify-content: center;
             align-items: flex-start;
-            margin-top: 20px;
         }
 
         .main-content {
@@ -149,6 +128,7 @@
             background-color: #fff;
             border-radius: 8px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
         }
 
         .menu {
@@ -183,7 +163,7 @@
             grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
             gap: 20px;
             padding: 20px;
-            width: 80%;
+            width: 100%;
         }
 
         .product-item {
@@ -224,6 +204,47 @@
             cursor: pointer;
             margin-top: 10px;
             display: inline-block;
+        }
+
+        .search-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px 0;
+            background-color: #fff;
+            margin: 20px 10% 0 10%;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            border-radius: 25px 25px 0 0;
+        }
+
+        .search-container input[type="text"] {
+            width: 100vh;
+            height: 40px;
+            padding: 0 15px;
+            border: 1px solid #ddd;
+            border-radius: 25px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+            margin-right: 10px;
+        }
+
+        .search-container input[type="text"]:focus {
+            border-color: #ff6600;
+            outline: none;
+        }
+
+        #search-button {
+            padding: 13px 25px;
+            background-color: #ff6600;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        #search-button:hover {
+            background-color: #fa541c;
         }
     </style>
     <!-- Include FontAwesome CDN -->
@@ -284,28 +305,19 @@
         </div>
     </div>
 
-    <div class="main-content-layout">
-        <!-- Main content -->
-        <div class="main-content">
-            <!-- Menu for product categories -->
-            <div class="menu">
-                <input type="text" placeholder="Tìm kiếm sản phẩm..." style="width: 100%; height: 25px; border-radius: 25px;">
-                <h3>Sắp xếp giá</h3>
-                <ul>
-                    <li id="sort-asc">Từ thấp tới cao</li>
-                    <li id="sort-desc">Từ cao tới thấp</li>
-                </ul>
-            </div>
+    <div class="search-container">
+        <input type="text" id="search-input" placeholder="Tìm kiếm sản phẩm...">
+        <button id="search-button">Tìm kiếm</button>
+    </div>
 
-            <!-- Product Section -->
+    <div class="main-content-layout">
+        <div class="main-content">
             <div class="products-container" id="products-container"></div>
         </div>
     </div>
 
     <script src="home.js"></script>
     <script src="../header.js"></script>
-
-
 </body>
 
 </html>

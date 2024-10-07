@@ -120,3 +120,44 @@ document.querySelectorAll('.category-card').forEach(card => {
     });
 });
 
+
+// Hàm để tìm kiếm sản phẩm
+function searchProducts(term) {
+    console.log('Sending search term to API:', term); // Log the search term
+    fetch(`http://localhost:3000/api/products/search`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${getCookie('token')}`
+        },
+        body: JSON.stringify({ term }),
+    })
+    .then(response => {
+        if (!response.ok) {
+            alert('Không tìm thấy sản phẩm nào');
+            fetchProducts();
+        }
+        return response.json();
+    })
+    .then(data => {
+        productList = data; // Cập nhật danh sách sản phẩm
+        renderProducts(productList); // Hiển thị sản phẩm tìm được
+    })
+    .catch(error => {
+        console.error('Lỗi khi gọi API tìm kiếm:', error);
+    });
+}
+
+// Lấy phần tử input và nút tìm kiếm
+const searchInput = document.getElementById('search-input');
+const searchButton = document.getElementById('search-button');
+
+// Thêm sự kiện click cho nút tìm kiếm
+searchButton.addEventListener('click', function() {
+    const searchTerm = searchInput.value.trim(); // Lấy giá trị từ input và loại bỏ khoảng trắng
+    if (searchTerm) { // Kiểm tra nếu từ khóa không rỗng
+        searchProducts(searchTerm); // Gọi hàm tìm kiếm với giá trị tìm kiếm
+    } else {
+        console.log('Vui lòng nhập từ khóa tìm kiếm.');
+    }
+});

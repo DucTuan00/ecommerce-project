@@ -46,5 +46,6 @@ module.exports = {
     createProduct,
     updateProduct,
     deleteProduct,
-    searchProducts
+    searchProducts,
+    searchProducts,
 };

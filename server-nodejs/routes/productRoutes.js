@@ -17,7 +17,7 @@ const upload = multer({ storage });
 
 router.get('/', productController.getProducts);
 
-router.get('/search', productController.searchProducts);
+router.post('/search', productController.searchProducts);
 
 router.get('/:id', productController.getProductById);
 
