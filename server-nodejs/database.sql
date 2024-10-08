@@ -45,3 +45,21 @@ INSERT INTO categories (name) VALUES ('Bếp');
 INSERT INTO categories (name) VALUES ('Máy xay');
 INSERT INTO categories (name) VALUES ('Máy hút bụi');
 
+CREATE TABLE orders (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT, 
+    total_amount FLOAT NOT NULL,
+    status VARCHAR(50) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id)
+);
+
+CREATE TABLE order_items (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    order_id INT, 
+    product_id INT, 
+    quantity INT NOT NULL, 
+    price FLOAT NOT NULL,
+    FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE,
+    FOREIGN KEY (product_id) REFERENCES products(id)
+);
