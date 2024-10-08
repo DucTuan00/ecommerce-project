@@ -49,31 +49,71 @@ async function fetchProductDetails() {
         productImage.style.width = '400px';
         productImage.style.height = '400px';
 
-             // Add event listeners for quantity increment/decrement and Add to Cart button
-             const quantityInput = document.querySelector('.quantity-input');
-             const decrementButton = document.querySelector('.quantity-decrement');
-             const incrementButton = document.querySelector('.quantity-increment');
-             const addToCartButton = document.querySelector('.add-to-cart');
-     
-             decrementButton.addEventListener('click', () => {
-                 const currentValue = parseInt(quantityInput.value);
-                 if (currentValue > 1) {
-                     quantityInput.value = currentValue - 1;
-                 }
-             });
-     
-             incrementButton.addEventListener('click', () => {
-                 const currentValue = parseInt(quantityInput.value);
-                 quantityInput.value = currentValue + 1;
-             });
-     
-             addToCartButton.addEventListener('click', () => {
-                 // Add to cart logic here
-                 console.log('Add to cart button clicked!');
-             });
+            // Add event listeners for quantity increment/decrement and Add to Cart button
+            const quantityInput = document.querySelector('.quantity-input');
+            const decrementButton = document.querySelector('.quantity-decrement');
+            const incrementButton = document.querySelector('.quantity-increment');
+            const addToCartButton = document.querySelector('.add-to-cart');
+    
+            decrementButton.addEventListener('click', () => {
+                const currentValue = parseInt(quantityInput.value);
+                if (currentValue > 1) {
+                    quantityInput.value = currentValue - 1;
+                }
+            });
+    
+            incrementButton.addEventListener('click', () => {
+                const currentValue = parseInt(quantityInput.value);
+                quantityInput.value = currentValue + 1;
+            });
+    
+            addToCartButton.addEventListener('click', () => {
+                const quantity = parseInt(quantityInput.value, 10); // Chuyển đổi sang số nguyên
+            
+                // Kiểm tra giá trị quantity
+                if (isNaN(quantity) || quantity <= 0) {
+                    alert('Vui lòng nhập số lượng hợp lệ.');
+                    return; // Dừng thực hiện nếu không hợp lệ
+                }
+            
+                createCart(product.id, quantity);
+            });
     } catch (error) {
         console.error('Error fetching product details:', error);
         // Hiển thị thông báo lỗi (nếu có)
+    }
+}
+
+// Lấy token từ cookie
+const token = document.cookie.split('; ').find(row => row.startsWith('token='));
+const Token = token ? token.split('=')[1] : '';
+
+async function createCart(product_id, quantity) {
+    const data = {
+        product_id: product_id,
+        quantity: quantity
+    };
+
+    try {
+        const response = await fetch('http://localhost:3000/api/cart', {
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${Token}`
+            }
+        });
+
+        if (response.ok) {
+            const cart = await response.json();
+            alert("Đã thêm vào giỏ hàng");
+        } else {
+            const errorData = await response.json();
+            alert(`Không thể thêm vào giỏ hàng, lỗi: ${errorData.message}`);
+        }
+    } catch (error) {
+        console.log('Lỗi khi thêm vào giỏ hàng', error);
+        alert('Đã xảy ra lỗi khi thêm vào giỏ hàng');
     }
 }
 

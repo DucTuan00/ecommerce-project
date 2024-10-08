@@ -76,7 +76,8 @@ function renderCart(cartData, productData) {
 
     if (Array.isArray(cartData)) {
         cartData.forEach(item => {
-            const product = productData[item.product_id];
+            // Tìm sản phẩm trong mảng `productData` dựa trên `product_id`
+            const product = productData.find(p => p.id === item.product_id);
             if (product) {
                 const itemElement = createCartItemElement(item, product);
                 cartItemsContainer.appendChild(itemElement);
@@ -92,8 +93,6 @@ function renderCart(cartData, productData) {
     } else {
         console.error('Dữ liệu giỏ hàng không hợp lệ.');
     }
-
-    //updateCartTotal(cartData.total);
 }
 
 // Tạo phần tử HTML cho mỗi sản phẩm trong giỏ hàng
