@@ -138,6 +138,8 @@ document.addEventListener('DOMContentLoaded', function () {
                     return response.text().then(text => {
                         throw new Error(`HTTP error! status: ${response.status}, message: ${text}`);
                     });
+                }else{ 
+                    fetchProducts();
                 }
                 return response.json();
             })

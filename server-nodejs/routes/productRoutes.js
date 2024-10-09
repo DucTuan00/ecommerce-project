@@ -21,13 +21,13 @@ router.post('/search', productController.searchProducts);
 
 router.get('/:id', productController.getProductById);
 
-router.post('/', authMiddleware(['1']), upload.fields([{ name: 'image', maxCount: 1 }]), productController.createProduct);
+router.post('/', authMiddleware(['1']), upload.fields([{ name: 'image' }]), productController.createProduct);
 
 
 //upload ảnh
 router.post('/upload', authMiddleware(['1']), upload.single('image'), productController.uploadImage);
 
-router.patch('/:id', authMiddleware(['1']), upload.fields([{ name: 'image', maxCount: 1 }]), productController.updateProduct);
+router.put('/:id', authMiddleware(['1']), upload.fields([{ name: 'image'}]), productController.updateProduct);
 
 router.delete('/:id', authMiddleware(['1']), productController.deleteProduct);
 
