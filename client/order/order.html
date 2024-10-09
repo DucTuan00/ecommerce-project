@@ -55,7 +55,7 @@
             margin-left: 10px;
         }
 
-        .header-actions {
+        .header -actions {
             display: flex;
             align-items: center;
         }
@@ -162,25 +162,34 @@
         }
 
         .actions-btn {
-            text-align: right;
+            width: 13%;
+            align-items: center;
+            justify-content: center;
         }
 
         .actions-btn a {
             margin-left: 10px;
             color: white;
-            padding: 5px 10px;
+            padding: 3px 8px;
             background-color: #007bff;
             border-radius: 5px;
             text-decoration: none;
             transition: opacity 0.3s ease;
+            font-size: 16px;
+            line-height: 1.5;
         }
 
-        .actions-btn a.delete-btn {
-            background-color: #dc3545;
+        .actions-btn a.edit-btn {
+            background-color: #007bff;
         }
 
         .actions-btn a:hover {
             opacity: 0.8;
+        }
+
+
+        .actions-btn a.delete-btn {
+            background-color: #dc3545;
         }
 
         .select-product {
@@ -198,66 +207,44 @@
 
     <!-- Main Content -->
     <div class="container">
-        <h1>Danh Sách Đơn Hàng</h1>
+        <h1>Đơn Hàng Của Tôi</h1>
 
-        <!-- Product Table -->
+        <!-- Order Table -->
         <table>
             <thead>
                 <tr>
-                    <th><input type="checkbox" id="select-all"></th>
-                    <th>Tên sản phẩm</th>
-                    <th>Giá sản phẩm</th>
-                    <th>Thể loại</th>
-                    <th>Mô tả</th>
-                    <th>Link hình ảnh</th>
+                    <th>Ngày</th>
+                    <th>Tổng số tiền</th>
+                    <th>Trạng thái</th>
                     <th>Hành động</th>
                 </tr>
             </thead>
-            <tbody id="productTableBody">
-                <tr>
-                    <td class="select-product"><input type="checkbox" class="select-item"></td>
-                    <td>Sản phẩm 1</td>
-                    <td>500.000đ</td>
-                    <td>Điện thoại</td>
-                    <td>Điện thoại thông minh với nhiều tính năng.</td>
-                    <td>https://via.placeholder.com/150</td>
-                    <td class="actions-btn">
-                        <a href="../editProduct/editProduct.html" class="edit-btn">Xem chi tiết</a>
-                    </td>
-                </tr>
-                <!-- Add more product rows as needed -->
+            <tbody id="orderTableBody">
+                <!-- Dữ liệu đơn hàng sẽ được chèn vào đây -->
             </tbody>
         </table>
     </div>
 
     <script>
-        // JavaScript to handle select all checkbox functionality
-        document.getElementById('select-all').addEventListener('change', function () {
-            const checkboxes = document.querySelectorAll('.select-item');
-            checkboxes.forEach(checkbox => {
-                checkbox.checked = this.checked;
-            });
+        document.addEventListener("DOMContentLoaded", function () {
+            fetch('../header.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('header-container').innerHTML = data;
+                });
+
+            fetch('../nav.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('nav-container').innerHTML = data;
+                    checkAndDisplayProductLink();
+                });
         });
     </script>
 
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        fetch('../header.html')
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById('header-container').innerHTML = data;
-            });
-
-        fetch('../nav.html')
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById('nav-container').innerHTML = data;
-                checkAndDisplayProductLink();
-            });
-    });
-</script>
-<script src="../checkAuth.js"></script>
-<script src="../check-permission.js"></script>
+    <script src="../checkAuth.js"></script>
+    <script src="../check-permission.js"></script>
+    <script src="./order.js"></script>
 
 </body>
 
