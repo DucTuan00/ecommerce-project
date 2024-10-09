@@ -74,7 +74,7 @@ document.getElementById('addProductForm').addEventListener('submit', async funct
     try {
         // Gửi yêu cầu PATCH đến API
         const response = await fetch(`http://localhost:3000/api/products/${id}`, {
-            method: 'PATCH',
+            method: 'PUT',
             body: formData, // Gửi FormData
             headers: {
                 'Authorization': `Bearer ${Token}` // Sử dụng token từ cookie

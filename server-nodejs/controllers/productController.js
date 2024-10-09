@@ -22,11 +22,14 @@ exports.getProductById = (req, res) => {
 exports.createProduct = (req, res) => {
     const { name, price, description, category_id } = req.body;
 
-    const image = req.file ? req.file.path : null;
+        const image = req.files.image ? req.files.image[0] : null;
+        const imagePath = image ? image.path : null;
 
-    console.log("data", req.body, req.file); 
+    // console.log("imagePath", imagePath);
 
-    productModel.createProduct(name, price, image, description, category_id, (err, results) => {
+    // console.log("data", req.body, req.file); 
+
+    productModel.createProduct(name, price, imagePath, description, category_id, (err, results) => {
         if (err) {
             console.error(err);
             return res.status(500).json({ message: 'Error creating product' });
@@ -36,7 +39,7 @@ exports.createProduct = (req, res) => {
             id: results.insertId,
             name,
             price,
-            image,
+            imagePath,
             description,
             category_id,
             message: 'Product created successfully'
@@ -48,17 +51,20 @@ exports.createProduct = (req, res) => {
 exports.updateProduct = (req, res) => {
     const { id } = req.params;
     const { name, price, description, category_id } = req.body;
-    const image = req.files.image[0] ? req.files.image[0].path : null;
 
-    console.log("req.body", req.body);
-    console.log("image", image);
+    const image = req.files.image ? req.files.image[0] : null;
+    const imagePath = image ? image.path : null;
 
-    productModel.updateProduct(id, name, price, image, description, category_id, (err, results) => {
-        if (err) return res.status(500).json({ message: 'Error updating product' });
+
+    productModel.updateProduct(id, name, price, imagePath, description, category_id, (err, results) => {
+        if (err) {
+            console.error(err); 
+            return res.status(500).json({ message: 'Error updating product' });
+        }
         res.status(201).json({
             name,
             price,
-            image,
+            imagePath,
             description,
             category_id
         });
@@ -74,9 +80,6 @@ exports.deleteProduct = (req, res) => {
         res.json({ message: 'Product deleted successfully' });
     });
 };
-
-const fs = require('fs');
-const path = require('path');
 
 // Upload ảnh
 exports.uploadImage = (req, res) => {
