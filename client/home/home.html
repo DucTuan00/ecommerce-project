@@ -10,71 +10,105 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f8f8f8;
+            background: linear-gradient(to left, #f8e9e8, #e5f6f6, #fff0f5);
         }
 
         .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 10px 20px;
-            background-color: #fa541c;
-            padding: 20px 30px 25px 30px;
+            padding: 20px 50px;
+            background-color: #fff;
         }
 
         .logo {
-            color: white;
             font-size: 24px;
             font-weight: bold;
+            color: #333;
         }
 
-        .header-actions {
+        .search-container {
             display: flex;
             align-items: center;
         }
 
-        .header-actions button,
-        .header-actions a {
-            margin-left: 15px;
-            padding: 8px 15px;
-            border: none;
-            background-color: #ff6600;
+        .search-container input[type="text"] {
+            width: 300px;
+            height: 40px;
+            padding: 0 15px;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+
+        .search-container input[type="text"]:focus {
+            border-color: #ff6600;
+            outline: none;
+        }
+
+        #search-button {
+            padding: 10px 20px;
+            background-color: #333;
             color: white;
+            border: none;
+            border-radius: 20px;
             cursor: pointer;
-            text-decoration: none;
-            border-radius: 5px;
+            margin-left: 10px;
         }
 
-        .categories {
+        .nav-links {
             display: flex;
-            justify-content: space-around;
-            padding: 15px 0;
-            background-color: #fff;
-            border-bottom: 1px solid #ddd;
-            margin-bottom: 30px;
+            gap: 20px;
         }
 
-        .categories a {
+        .nav-links a {
             text-decoration: none;
             color: #333;
-            padding: 5px 10px;
         }
 
-        .categories a:hover,
-        .categories a.active {
-            color: #ff6600;
-            border-bottom: 2px solid #ff6600;
+        .cart-icon {
+            background-color: #f0f0f0;
+            border-radius: 50%;
+            padding: 10px;
         }
 
-        .slideshow-container {
-            position: relative;
-            max-width: 80%;
-            margin: 20px auto;
+        .hero {
+            display: flex;
+            justify-content: space-between;
+            padding: 50px;
+            background: linear-gradient(to left, #ffe4e1, #e0ffff, #fff0f5);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
 
-        .slideshow img {
-            width: 100%;
-            border-radius: 10px;
+        .hero-text {
+            flex: 1;
+        }
+
+        .hero-text h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+
+        .hero-text button {
+            background-color: #333;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .hero-images {
+            flex: 1;
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .hero-images img {
+            width: 45%;
+            height: auto;
+            object-fit: cover;
         }
 
         .category-layout {
@@ -129,41 +163,16 @@
             border-radius: 8px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             margin-bottom: 30px;
-        }
+            align-items: center;
 
-        .menu {
-            width: 20%;
-            padding: 20px;
-            border-right: 1px solid #ddd;
-        }
-
-        .menu h3 {
-            margin-bottom: 15px;
-            font-size: 18px;
-            color: #333;
-        }
-
-        .menu ul {
-            list-style-type: none;
-            padding: 0;
-        }
-
-        .menu li {
-            padding: 10px 0;
-            cursor: pointer;
-            transition: color 0.3s ease;
-        }
-
-        .menu li:hover {
-            color: #ff6600;
         }
 
         .products-container {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
             gap: 20px;
-            padding: 20px;
-            width: 100%;
+            padding: 40px 10%;
+            width: 80%;
         }
 
         .product-item {
@@ -206,48 +215,73 @@
             display: inline-block;
         }
 
-        .search-container {
+        .nav-container {
             display: flex;
-            justify-content: center;
             align-items: center;
-            padding: 20px 0;
-            background-color: #fff;
-            margin: 20px 10% 0 10%;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            border-radius: 25px 25px 0 0;
         }
 
-        .search-container input[type="text"] {
-            width: 100vh;
-            height: 40px;
-            padding: 0 15px;
-            border: 1px solid #ddd;
-            border-radius: 25px;
-            font-size: 14px;
-            transition: border-color 0.3s;
-            margin-right: 10px;
+        .categories {
+            display: flex;
+            gap: 20px;
         }
 
-        .search-container input[type="text"]:focus {
-            border-color: #ff6600;
-            outline: none;
+        .categories a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s ease;
         }
 
-        #search-button {
-            padding: 13px 25px;
-            background-color: #ff6600;
+        .categories a:hover,
+        .categories a.active {
+            color: #4CAF50;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .header-actions a {
+            text-decoration: none;
+            color: #333;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .header-actions .fa-shopping-cart {
+            font-size: 20px;
+        }
+
+        .logout-btn {
+            padding: 8px 15px;
+            background-color: #f44336;
             color: white;
             border: none;
-            border-radius: 25px;
+            border-radius: 4px;
             cursor: pointer;
-            transition: background-color 0.3s;
+            transition: background-color 0.3s ease;
         }
 
-        #search-button:hover {
-            background-color: #fa541c;
+        .logout-btn:hover {
+            background-color: #d32f2f;
+        }
+
+        .section-title {
+            font-size: 2.5em;
+            font-weight: bold;
+            text-align: center;
+            margin: 40px 0 20px 0;
+            color: #333;
+        }
+
+        .category-layout,
+        .main-content-layout {
+            margin-top: 20px;
         }
     </style>
-    <!-- Include FontAwesome CDN -->
     <script src="https://kit.fontawesome.com/91c8b57a30.js" crossorigin="anonymous"></script>
 </head>
 
@@ -255,16 +289,19 @@
     <!-- Placeholder for header -->
     <div id="header-container"></div>
 
-    <!-- Placeholder for nav -->
-    <div id="nav-container"></div>
 
-
-    <div class="slideshow-container">
-        <div class="slideshow">
-            <img src="https://via.placeholder.com/1200x400.png?text=Tin+Tức+1" alt="Slide 1">
+    <div class="hero">
+        <div class="hero-text">
+            <h1>Mua sắm đồ gia dụng chưa bao giờ dễ dàng đến thế</h1>
+            <button>Xem Bộ Sưu Tập</button>
+        </div>
+        <div class="hero-images">
+            <img src="../img/pan.png" alt="Chảo">
+            <img src="../img/pot.png" alt="Nồi">
         </div>
     </div>
 
+    <div class="section-title">Thể loại</div>
 
     <div class="category-layout">
         <div class="category-highlights">
@@ -291,10 +328,7 @@
         </div>
     </div>
 
-    <div class="search-container">
-        <input type="text" id="search-input" placeholder="Tìm kiếm sản phẩm...">
-        <button id="search-button">Tìm kiếm</button>
-    </div>
+    <div class="section-title">Sản phẩm</div>
 
     <div class="main-content-layout">
         <div class="main-content">
@@ -308,17 +342,12 @@
                 .then(response => response.text())
                 .then(data => {
                     document.getElementById('header-container').innerHTML = data;
-                });
-
-            fetch('../nav.html')
-                .then(response => response.text())
-                .then(data => {
                     document.getElementById('nav-container').innerHTML = data;
                     checkAndDisplayProductLink();
                 });
         });
     </script>
-    
+
     <script src="home.js"></script>
     <script src="../header.js"></script>
     <script src="../check-permission.js"></script>
