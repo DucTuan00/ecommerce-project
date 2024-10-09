@@ -40,7 +40,7 @@ document.addEventListener("DOMContentLoaded", function () {
             <td>${order.total_amount.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</td>
             <td>${renderOrderStatus(order.status)}</td>
             <td class="actions-btn">
-                <a href="/order/edit/${order.id}" class="edit-btn"><i class="fas fa-edit"></i></a>
+                <a href="../order/order.html/${order.id}" class="edit-btn"><i class="fas fa-edit"></i></a>
             </td>
         `;
 
