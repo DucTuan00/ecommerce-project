@@ -164,5 +164,26 @@ document.querySelector('.cart-items').addEventListener('click', (event) => {
     }
 });
 
+async function createOrder() {
+    try {
+        const response = await fetch(`http://localhost:3000/api/orders`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${Token}`
+            }
+        });
+        if (!response.ok) {
+            throw new Error('Không thể tạo đơn hàng');
+        }
+    } catch (error) {
+        console.log('Lỗi khi tạo đơn hàng', error);
+    }
+}
+
+document.querySelector('.create-order').addEventListener('click', () => {
+    createOrder();
+})
+
 // Khởi tạo giỏ hàng khi trang được tải
 document.addEventListener('DOMContentLoaded', fetchCart);
