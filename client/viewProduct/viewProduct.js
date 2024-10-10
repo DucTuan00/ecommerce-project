@@ -68,19 +68,17 @@ async function fetchProductDetails() {
             });
     
             addToCartButton.addEventListener('click', () => {
-                const quantity = parseInt(quantityInput.value, 10); // Chuyển đổi sang số nguyên
+                const quantity = parseInt(quantityInput.value, 10);
             
-                // Kiểm tra giá trị quantity
                 if (isNaN(quantity) || quantity <= 0) {
                     alert('Vui lòng nhập số lượng hợp lệ.');
-                    return; // Dừng thực hiện nếu không hợp lệ
+                    return;
                 }
             
                 createCart(product.id, quantity);
             });
     } catch (error) {
         console.error('Error fetching product details:', error);
-        // Hiển thị thông báo lỗi (nếu có)
     }
 }
 

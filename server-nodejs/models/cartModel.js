@@ -15,6 +15,10 @@ const deleteCart = (id, user_id, callback) => {
         [id, user_id], callback);
 };
 
+const clearCart = (user_id, callback) => {
+    db.query('DELETE FROM carts WHERE user_id = ?', [user_id], callback);
+};
+
 const getCartByUserId = (user_id, callback) => {
     db.query('SELECT * FROM carts WHERE user_id = ?', [user_id], callback);
 };
@@ -28,5 +32,6 @@ module.exports = {
     updateCart,
     deleteCart,
     getCartByUserId,
-    getCartById
+    getCartById,
+    clearCart
 };
