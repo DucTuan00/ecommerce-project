@@ -63,7 +63,7 @@ exports.createOrder = (req, res) => {
 };
 
 exports.getAllOrderItemsByOrderId = (req, res) => {
-    const order_id = req.params.order_id;
+    const order_id = req.params.id;
 
     orderModel.getAllOrderItemsByOrderId(order_id, (err, orderItems) => {
         if (err) return res.status(500).json({ message: 'Error fetching order items' });
@@ -79,5 +79,16 @@ exports.getOrderById = (req, res) => {
     orderModel.getOrderById(id, (err, result) => {
         if (err) return res.status(500).json({message: 'Cannot get order'});
         res.status(200).json(result);
+    });
+};
+
+exports.updateOrderStatus = (req, res) => {
+    const orderId = req.params.id;
+    const { status } = req.body;
+
+    orderModel.updateOrderStatus(orderId, status, (err, result) => {
+        if (err) return res.status(500).json({ message: 'Error updating order status' });
+        if (result.affectedRows === 0) return res.status(404).json({ message: 'Order not found' });
+        res.status(200).json({ message: 'Order status updated successfully' });
     });
 };

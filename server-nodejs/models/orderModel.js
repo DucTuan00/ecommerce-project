@@ -28,10 +28,16 @@ const getOrderById = (id, callback) => {
     db.query('SELECT * FROM orders WHERE id = ?', [id], callback);
 }
 
+const updateOrderStatus = (orderId, status, callback) => {
+    const sql = 'UPDATE orders SET status = ? WHERE id = ?';
+    db.query(sql, [status, orderId], callback);
+};
+
 module.exports = {
     getOrdersByUserId,
     createOrder,
     addOrderItems,
     getAllOrderItemsByOrderId,
-    getOrderById
+    getOrderById,
+    updateOrderStatus,
 };
