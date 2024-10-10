@@ -1,55 +1,95 @@
+/* Tổng quan */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f8f8f8;
+    background: linear-gradient(to left, #f8e9e8, #e5f6f6, #fff0f5);
 }
 
 .header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px 30px;
-    background-color: #fa541c;
-    color: white;
+    padding: 0 50px;
+    background-color: #fff;
 }
 
 .logo {
     font-size: 24px;
     font-weight: bold;
+    color: #333;
 }
 
-.search-bar {
+.search-container {
     display: flex;
     align-items: center;
-    flex-grow: 1;
-    margin: 0 20px;
-    border-radius: 25px;
 }
 
-.search-bar input {
-    padding: 8px;
+.search-container input[type="text"] {
+    width: 300px;
+    height: 40px;
+    padding: 0 15px;
     border: 1px solid #ddd;
-    border-radius: 25px;
-    flex-grow: 1;
+    border-radius: 20px;
+    font-size: 14px;
+    transition: border-color 0.3s;
+}
+
+.search-container input[type="text"]:focus {
+    border-color: #ff6600;
+    outline: none;
+}
+
+#search-button {
+    padding: 10px 20px;
+    background-color: #333;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
     margin-left: 10px;
 }
 
-.header-actions a {
-    margin-left: 15px;
-    padding: 8px 15px;
-    background-color: #ff6600;
-    color: white;
-    text-decoration: none;
-    border-radius: 5px;
+.nav-links {
+    display: flex;
+    gap: 20px;
 }
 
+.nav-links a {
+    text-decoration: none;
+    color: #333;
+}
+
+.cart-icon {
+    background-color: #f0f0f0;
+    border-radius: 50%;
+    padding: 10px;
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.header-actions a {
+    text-decoration: none;
+    color: #333;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.header-actions .fa-shopping-cart {
+    font-size: 20px;
+}
+
+/* Categories */
 .categories {
     display: flex;
     justify-content: space-around;
     padding: 15px 0;
     background-color: #fff;
-    border-bottom: 1px solid #ddd;
 }
 
 .categories a {
@@ -64,13 +104,14 @@ body {
     border-bottom: 2px solid #ff6600;
 }
 
+/* Container */
 .container {
     margin: 20px auto;
     height: 80vh;
     max-width: 70%;
     padding: 20px;
     background-color: white;
-    border-radius: 10px;
+    border-radius: 25px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
@@ -87,14 +128,26 @@ h2 {
     gap: 70px;
 }
 
+.product-image {
+    width: 30%; 
+    max-width: 300px; 
+    height: auto; 
+}
+
 .product-image img {
-    max-width: 120%;
+    width: 100%; 
+    height: auto; 
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
+
 .product-info {
-    flex-grow: 1;
+    margin: 0 0 0 10%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
 .product-name {
@@ -114,6 +167,8 @@ h2 {
     font-size: 16px;
     color: #555;
     margin-bottom: 20px;
+    max-width: 100%; /* Điều chỉnh để không giới hạn chiều rộng quá nhỏ */
+    word-wrap: break-word;
 }
 
 .product-category {
@@ -121,6 +176,7 @@ h2 {
     color: #555;
 }
 
+/* Footer */
 .footer {
     background-color: #333;
     color: white;
@@ -130,6 +186,8 @@ h2 {
     bottom: 0;
     width: 100%;
 }
+
+/* Quantity and Add to Cart */
 .quantity-container {
     display: flex;
     align-items: center;
@@ -141,7 +199,7 @@ h2 {
     height: 30px;
     border: none;
     border-radius: 50%;
-    background-color: #ff6600;
+    background-color: #333;
     color: #fff;
     cursor: pointer;
 }
@@ -157,16 +215,21 @@ h2 {
 }
 
 .add-to-cart {
-    width: 90%;
-    height: 40px;
-    border: none;
-    border-radius: 5px;
-    background-color: #ff6600;
+    width: 100%; /* Để nút chiếm chiều rộng tự động, thay vì 90% */
+    padding: 8px 30px;
+    margin: 0 20px;
+    border-radius: 25px;
+    background-color: #333;
     color: #fff;
     cursor: pointer;
     font-size: 16px;
+    position: relative;
+    bottom: 10px;
 }
-.product-description {
-    width: 80vh;
-    word-wrap: break-word; 
-  }
+
+/* Cart Add */
+.cartAdd {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}

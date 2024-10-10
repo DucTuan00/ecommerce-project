@@ -7,70 +7,114 @@
     <script src="https://kit.fontawesome.com/91c8b57a30.js" crossorigin="anonymous"></script>
     <style>
         body {
-            font-family: 'Arial', sans-serif;
+            font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f8f8f8;
+            background: linear-gradient(to left, #f8e9e8, #e5f6f6, #fff0f5);
         }
+
         .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px 30px;
-            background-color: #fa541c;
-            color: white;
+            padding: 0 50px;
+            background-color: #fff;
         }
-        .search-bar {
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .search-container {
             display: flex;
             align-items: center;
-            flex-grow: 1;
-            margin: 0 20px;
-            border-radius: 25px;
         }
-        .search-bar select, .search-bar input {
-            padding: 8px;
+
+        .search-container input[type="text"] {
+            width: 300px;
+            height: 40px;
+            padding: 0 15px;
             border: 1px solid #ddd;
-            border-radius: 25px;
+            border-radius: 20px;
+            font-size: 14px;
+            transition: border-color 0.3s;
         }
-        .search-bar input {
-            flex-grow: 1;
+
+        .search-container input[type="text"]:focus {
+            border-color: #ff6600;
+            outline: none;
+        }
+
+        #search-button {
+            padding: 10px 20px;
+            background-color: #333;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
             margin-left: 10px;
         }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+        }
+
+        .cart-icon {
+            background-color: #f0f0f0;
+            border-radius: 50%;
+            padding: 10px;
+        }
+
         .header-actions {
             display: flex;
             align-items: center;
+            gap: 15px;
         }
-        .header-actions button, .header-actions a {
-            margin-left: 15px;
-            padding: 8px 15px;
-            border: none;
-            background-color: #ff6600;
-            color: white;
-            cursor: pointer;
+
+        .header-actions a {
             text-decoration: none;
-            border-radius: 5px;
+            color: #333;
+            display: flex;
+            align-items: center;
+            gap: 5px;
         }
-        nav {
+
+        .header-actions .fa-shopping-cart {
+            font-size: 20px;
+        }
+
+        /* Categories */
+        .categories {
             display: flex;
             justify-content: space-around;
             padding: 15px 0;
             background-color: #fff;
-            border-bottom: 1px solid #ddd;
-            margin-bottom: 30px;
         }
-        nav a {
+
+        .categories a {
             text-decoration: none;
             color: #333;
             padding: 5px 10px;
             transition: color 0.3s ease;
         }
-        nav a:hover {
+
+        .categories a.active {
             color: #ff6600;
+            border-bottom: 2px solid #ff6600;
         }
+
         .container {
             width: 95%;
             max-width: 800px;
-            margin: 0 auto;
+            margin: 20px auto;
             padding: 20px;
             background-color: white;
             border-radius: 10px;
@@ -128,9 +172,6 @@
     <!-- Placeholder for header -->
     <div id="header-container"></div>
 
-    <!-- Placeholder for nav -->
-    <div id="nav-container"></div>
-
     <!-- Thêm Sản Phẩm -->
     <div class="container">
         <h2>Thêm Sản Phẩm</h2>
@@ -176,12 +217,6 @@
                 .then(response => response.text())
                 .then(data => {
                     document.getElementById('header-container').innerHTML = data;
-                });
-
-            fetch('../nav.html')
-                .then(response => response.text())
-                .then(data => {
-                    document.getElementById('nav-container').innerHTML = data;
                     checkAndDisplayProductLink();
                 });
         });

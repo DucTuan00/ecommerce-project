@@ -160,7 +160,7 @@
             display: flex;
             width: 80%;
             background-color: #fff;
-            border-radius: 8px;
+            border-radius: 25px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             margin-bottom: 30px;
             align-items: center;
@@ -301,6 +301,46 @@
             top: 0;
             left: 0;
         }
+        .search-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px 0;
+            background-color: #fff;
+            margin: 20px 10% 0 10%;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            border-radius: 25px;
+        }
+
+        .search-container input[type="text"] {
+            width: 100vh;
+            height: 40px;
+            padding: 0 15px;
+            border: 1px solid #ddd;
+            border-radius: 25px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+            margin-right: 10px;
+        }
+
+        .search-container input[type="text"]:focus {
+            border-color: #ff6600;
+            outline: none;
+        }
+
+        #search-button {
+            padding: 13px 25px;
+            background-color: #333;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        #search-button:hover {
+            background-color: #fa541c;
+        }
     </style>
     <script src="https://kit.fontawesome.com/91c8b57a30.js" crossorigin="anonymous"></script>
 </head>
@@ -326,12 +366,6 @@
             <img src="https://via.placeholder.com/1200x400.png?text=Tin+Tức+1" alt="Slide 1">
         </div>
     </div> -->
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
 
 
     <div class="category-layout">
@@ -358,13 +392,6 @@
             </div>
         </div>
     </div>
-
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
 
     <div class="search-container">
         <input type="text" id="search-input" placeholder="Tìm kiếm sản phẩm...">

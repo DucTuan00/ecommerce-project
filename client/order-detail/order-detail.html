@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quản lý Sản Phẩm</title>
+    <title>Chi Tiết Đơn Hàng</title>
     <script src="https://kit.fontawesome.com/91c8b57a30.js" crossorigin="anonymous"></script>
     <style>
         body {
@@ -112,103 +113,115 @@
         }
 
         .container {
-            width: 95%;
-            max-width: 800px;
-            margin: 20px auto;
+            width: 60%;
+            margin: 40px auto;
             padding: 20px;
             background-color: white;
             border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
-        h2 {
+
+        h1 {
+            color: #ff416c;
             text-align: center;
-            color: #333;
             margin-bottom: 30px;
-            font-size: 24px;
-            font-weight: bold;
         }
-        form {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-        label {
-            font-weight: bold;
-            color: #555;
-            margin-bottom: 8px;
-        }
-        input, textarea, select {
-            padding: 12px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            font-size: 16px;
-            transition: border 0.3s ease;
+
+        table {
             width: 100%;
-            box-sizing: border-box;
+            border-collapse: collapse;
+            margin-top: 20px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
         }
-        input:focus, textarea:focus, select:focus {
-            outline: none;
-            border-color: #ff6600;
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
         }
-        textarea {
-            resize: vertical;
+
+        th {
+            background-color: #f7f7f7;
+            font-weight: bold;
         }
-        button {
-            padding: 12px 20px;
-            background-color: #ff6600;
+
+        tbody tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .status-select {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .status-select label {
+            font-weight: bold;
+        }
+
+        .status-select select {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .update-btn {
+            background-color: #28a745;
             color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
+            padding: 10px 15px;
+            border-radius: 5px;
+            text-align: center;
             cursor: pointer;
             transition: background-color 0.3s ease;
+            font-size: 16px;
         }
-        button:hover {
-            background-color: #fa541c;
+
+        .update-btn:hover {
+            background-color: #218838;
         }
+
     </style>
 </head>
+
 <body>
     <!-- Placeholder for header -->
     <div id="header-container"></div>
 
-    <!-- Thêm Sản Phẩm -->
     <div class="container">
-        <h2>Cập nhật Sản Phẩm</h2>
-        <form id="addProductForm">
-            <div>
-                <label for="productName">Tên sản phẩm:</label>
-                <input type="text" id="productName" name="productName" placeholder="Nhập tên sản phẩm">
-            </div>
+        <h1>Chi Tiết Đơn Hàng</h1>
 
-            <div>
-                <label for="productPrice">Giá sản phẩm:</label>
-                <input type="number" id="productPrice" name="productPrice" placeholder="Nhập giá sản phẩm">
-            </div>
+        <div id="order-details-container"></div>
 
-            <div>
-                <label for="productImage">Ảnh sản phẩm:</label>
-                <input type="file" id="productImage" name="productImage">
-            </div>
+        <!-- Bảng sản phẩm trong đơn hàng -->
+        <table>
+            <thead>
+                <tr>
+                    <th>Sản phẩm ID</th>
+                    <th>Số lượng</th>
+                    <th>Giá</th>
+                    <th>Thành tiền</th>
+                </tr>
+            </thead>
+            <tbody id="productTableBody">
+                <!-- Sản phẩm sẽ được chèn vào đây -->
+            </tbody>
+        </table>
 
-            <div>
-                <label for="productDescription">Mô tả sản phẩm:</label>
-                <textarea id="productDescription" name="productDescription" rows="4" placeholder="Nhập mô tả sản phẩm"></textarea>
-            </div>
+        <!-- Chọn trạng thái đơn hàng -->
+        <div class="status-select">
+            <select id="orderStatus">
+                <option value="pending">Chờ xử lý</option>
+                <option value="shipped">Đang giao</option>
+                <option value="completed">Đã giao</option>
+                <option value="canceled">Đã hủy</option>
+            </select>
+        </div>
 
-            <div>
-                <label for="productCategory">Thể loại sản phẩm:</label>
-                <select id="productCategory" name="productCategory">
-                    <option value="1">Chảo</option>
-                    <option value="2">Nồi</option>
-                    <option value="3">Máy hút bụi</option>
-                    <option value="4">Bếp</option>
-                    <option value="5">Máy xay</option>
-                </select>
-            </div>
-
-            <button type="submit">Cập nhật sản phẩm</button>
-        </form>
+        <!-- Nút cập nhật trạng thái -->
+        <div class="status-select">
+            <button class="update-btn" id="updateStatusBtn">Cập nhật trạng thái</button>
+        </div>
     </div>
 
     <script>
@@ -223,9 +236,8 @@
     </script>
 
     <script src="../checkAuth.js"></script>
-    <script src="../header.js"></script>
-    <script src="./editProduct.js"></script>
     <script src="../check-permission.js"></script>
-
+    <script src="./order-detail.js"></script>
 </body>
+
 </html>
