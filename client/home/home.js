@@ -150,6 +150,7 @@ function searchProducts(term) {
 
 // Lấy phần tử input và nút tìm kiếm
 const searchInput = document.getElementById('search-input');
+console.log(searchInput);
 const searchButton = document.getElementById('search-button');
 
 // Thêm sự kiện click cho nút tìm kiếm
