@@ -14,4 +14,8 @@ router.get('/items/:id', authMiddleware(['1','2']), orderController.getAllOrderI
 
 router.put('/:id', authMiddleware(['1','2']), orderController.updateOrderStatus);
 
+router.put('/:id', authMiddleware(['1','2']), orderController.updateOrderStatus);
+
+router.get('/getAll', authMiddleware(['1', '2']), orderController.getUserOrders);
+
 module.exports = router;

@@ -7,27 +7,42 @@ document.addEventListener("DOMContentLoaded", function () {
     const userRole = localStorage.getItem('userRole');
 
 
-    // Hàm gọi API để lấy dữ liệu đơn hàng
     function fetchOrders() {
-        fetch('http://localhost:3000/api/orders', {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${Token}`
-            }
-        })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error("Không thể lấy dữ liệu đơn hàng");
+        let apiUrl = '';
+
+        console.log(userRole);
+
+        // Kiểm tra userRole để chọn URL API phù hợp
+        if (userRole === '1') {
+            apiUrl = 'http://localhost:3000/api/orders/getAll';
+        } else if (userRole === '2') {
+            apiUrl = 'http://localhost:3000/api/orders';
+        }
+
+        // Gọi API
+        if (apiUrl) {
+            fetch(apiUrl, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${Token}`
                 }
-                return response.json();
             })
-            .then(orders => {
-                renderOrderTable(orders);
-            })
-            .catch(error => {
-                console.error("Lỗi khi lấy đơn hàng:", error);
-            });
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error("Không thể lấy dữ liệu đơn hàng");
+                    }
+                    return response.json();
+                })
+                .then(orders => {
+                    renderOrderTable(orders);
+                })
+                .catch(error => {
+                    console.error("Lỗi khi lấy đơn hàng:", error);
+                });
+        } else {
+            console.error("userRole không hợp lệ.");
+        }
     }
 
     // Hàm render dữ liệu vào bảng

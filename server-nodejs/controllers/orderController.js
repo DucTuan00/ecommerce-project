@@ -92,3 +92,18 @@ exports.updateOrderStatus = (req, res) => {
         res.status(200).json({ message: 'Order status updated successfully' });
     });
 };
+
+exports.getAllOrders = (req, res) => {
+    console.log('Received request to get all orders');
+    orderModel.getAllOrders((err, orderItems) => {
+        if (err) {
+            console.error('Error fetching orders:', err);
+            return res.status(500).json({ message: 'Error fetching all order items' });
+        }
+        console.log('Order items:', orderItems); // Log dữ liệu order nhận được
+        if (orderItems.length === 0) {
+            return res.status(404).json({ message: 'No order items found' });
+        }
+        res.status(200).json(orderItems);
+    });
+};
