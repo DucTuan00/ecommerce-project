@@ -63,3 +63,9 @@ CREATE TABLE order_items (
     FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE,
     FOREIGN KEY (product_id) REFERENCES products(id)
 );
+
+ALTER TABLE orders
+ADD phone_number varchar(10);
+
+ALTER TABLE orders
+ADD address varchar(255);
