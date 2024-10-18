@@ -48,6 +48,9 @@ const getAllOrders = (callback) => {
     db.query(sql, callback);
 };
 
+const cancelOrder = (order_id, callback) => {
+    db.query('UPDATE orders SET status = "canceled" WHERE id = ?', [order_id], callback);
+};
 
 module.exports = {
     getOrdersByUserId,
@@ -57,4 +60,5 @@ module.exports = {
     getOrderById,
     updateOrderStatus,
     getAllOrders,
+    cancelOrder,
 };
