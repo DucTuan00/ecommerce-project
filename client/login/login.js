@@ -7,6 +7,13 @@ document.getElementById('loginForm').addEventListener('submit', async function(e
 
     errorMessage.textContent = '';
 
+        const passwordRegex = /^(?=.*[!@#$%^&*(),.?":{}|<>])[A-Za-z\d!@#$%^&*(),.?":{}|<>]{6,}$/;
+
+        if (!passwordRegex.test(password)) {
+            errorMessage.textContent = 'Mật khẩu phải có ít nhất 6 ký tự và chứa ít nhất 1 ký tự đặc biệt.';
+            return;
+        }
+
     const payload = {
         username: username,
         password: password

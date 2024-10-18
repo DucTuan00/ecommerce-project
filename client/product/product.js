@@ -19,6 +19,18 @@ document.addEventListener('DOMContentLoaded', function () {
     const token = document.cookie.split('; ').find(row => row.startsWith('token='));
     const Token = token ? token.split('=')[1] : '';
 
+        // Hàm ánh xạ ID danh mục sang tên
+        function getCategoryName(categoryId) {
+            switch (categoryId) {
+                case 1: return 'Chảo';
+                case 2: return 'Nồi';
+                case 3: return 'Bếp';
+                case 4: return 'Máy xay';
+                case 5: return 'Máy hút bụi';
+                default: return 'Không xác định';
+            }
+        }
+
     // Hàm fetch dữ liệu sản phẩm từ API
     function fetchProducts() {
         fetch('http://localhost:3000/api/products')
@@ -72,7 +84,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 </td>
                 <td>${product.name}</td>
                 <td>${new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(product.price)}</td>
-                <td>${product.category_id || 'Không xác định'}</td>
+                <td>${getCategoryName(product.category_id)}</td>
                 <td>${product.description}</td>
             `;
             productTableBody.appendChild(row);

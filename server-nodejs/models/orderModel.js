@@ -26,7 +26,13 @@ const addOrderItems = (order_id, product_id, quantity, price, callback) => {
 };
 
 const getAllOrderItemsByOrderId = (order_id, callback) => {
-    db.query('SELECT * FROM order_items WHERE order_id = ?', [order_id], callback);
+    const query = `
+        SELECT oi.*, p.name AS product_name 
+        FROM order_items oi 
+        INNER JOIN products p ON oi.product_id = p.id 
+        WHERE oi.order_id = ?`;
+    
+    db.query(query, [order_id], callback);
 }
 
 const getOrderById = (id, callback) => {

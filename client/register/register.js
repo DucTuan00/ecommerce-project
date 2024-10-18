@@ -11,9 +11,16 @@ document.getElementById('registerForm').addEventListener('submit', async functio
     // Clear any previous error messages
     errorMessage.textContent = '';
 
+    const passwordRegex = /^(?=.*[!@#$%^&*(),.?":{}|<>])[A-Za-z\d!@#$%^&*(),.?":{}|<>]{6,}$/;
+
+    if (!passwordRegex.test(password)) {
+        errorMessage.textContent = 'Mật khẩu phải có ít nhất 6 ký tự và chứa ít nhất 1 ký tự đặc biệt.';
+        return;
+    }
+
     // Validate form inputs
     if (password !== confirmPassword) {
-        errorMessage.textContent = 'Passwords do not match!';
+        errorMessage.textContent = 'Mật khẩu nhập lại không được khác mật khẩu đã nhập!';
         return;
     }
 
