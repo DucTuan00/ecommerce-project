@@ -6,30 +6,53 @@ document.addEventListener("DOMContentLoaded", function () {
     // Lấy userId từ localStorage
     const userRole = localStorage.getItem('userRole');
 
-
-    // Hàm gọi API để lấy dữ liệu đơn hàng
     function fetchOrders() {
-        fetch('http://localhost:3000/api/orders', {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${Token}`
-            }
-        })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error("Không thể lấy dữ liệu đơn hàng");
+        console.log('fetchOrders called');
+        let apiUrl = '';
+    
+        console.log('userRole:', userRole);
+    
+        // Kiểm tra userRole để chọn URL API phù hợp
+        if (userRole === '1') {
+            apiUrl = 'http://localhost:3000/api/orders/getAll';
+        } else if (userRole === '2') {
+            apiUrl = 'http://localhost:3000/api/orders';
+        }
+    
+        console.log('Fetching orders from:', apiUrl);
+    
+        // Gọi API
+        if (apiUrl) {
+            fetch(apiUrl, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${Token}`
                 }
-                return response.json();
             })
-            .then(orders => {
-                renderOrderTable(orders);
+            .then(response => {
+                console.log('Response received:', response);
+                console.log('Response status:', response.status);
+                return response.text(); // Đọc response body dưới dạng text
+            })
+            .then(text => {
+                console.log('Response body:', text);
+                try {
+                    const orders = JSON.parse(text); // Chuyển đổi text thành JSON
+                    console.log('Parsed orders:', orders);
+                    renderOrderTable(orders);
+                } catch (error) {
+                    console.error('Error parsing JSON:', error);
+                }
             })
             .catch(error => {
                 console.error("Lỗi khi lấy đơn hàng:", error);
             });
+        } else {
+            console.error("userRole không hợp lệ.");
+        }
     }
-
+    
     // Hàm render dữ liệu vào bảng
     function renderOrderTable(orders) {
         const orderTableBody = document.getElementById("orderTableBody");
