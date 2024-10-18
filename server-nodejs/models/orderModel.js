@@ -33,14 +33,11 @@ const updateOrderStatus = (orderId, status, callback) => {
     db.query(sql, [status, orderId], callback);
 };
 
+// Lấy tất cả đơn hàng
 const getAllOrders = (callback) => {
-    const sql = 'SELECT * FROM orders';
-    db.query(sql, (err, results) => {
-        if (err) {
-            console.log('Error fetching orders from DB:', err);
-            return callback(err);
-        }
-        console.log('Orders from DB:', results); 
+    const query = 'SELECT * FROM orders';
+    db.query(query, (err, results) => {
+        if (err) return callback(err, null);
         callback(null, results);
     });
 };
@@ -53,5 +50,5 @@ module.exports = {
     getAllOrderItemsByOrderId,
     getOrderById,
     updateOrderStatus,
-    getAllOrders
+    getAllOrders,
 };

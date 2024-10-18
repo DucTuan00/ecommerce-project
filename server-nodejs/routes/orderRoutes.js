@@ -16,6 +16,10 @@ router.put('/:id', authMiddleware(['1','2']), orderController.updateOrderStatus)
 
 router.put('/:id', authMiddleware(['1','2']), orderController.updateOrderStatus);
 
-router.get('/getAll', authMiddleware(['1', '2']), orderController.getUserOrders);
+console.log('Defining getAllOrders route');
+router.get('/getAll', (req, res) => {
+    console.log('getAllOrders route hit');
+    orderController.getAllOrders(req, res);
+});
 
 module.exports = router;
