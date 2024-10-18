@@ -6,6 +6,21 @@ document.addEventListener("DOMContentLoaded", function () {
     const orderId = window.location.pathname.split('/').pop(); // Lấy ID đơn hàng từ URL
     const token = document.cookie.split('; ').find(row => row.startsWith('token=')).split('=')[1];
 
+    const userRole = localStorage.getItem('userRole');
+
+    function checkUserRole() {
+        const statusSelect = document.getElementById("orderStatus");
+        const updateStatusBtn = document.getElementById("updateStatusBtn");
+
+        if (userRole !== '1') { // Nếu userRole không phải là admin (khác 1), ẩn select và nút cập nhật
+            statusSelect.style.display = "none";
+            updateStatusBtn.style.display = "none";
+        } else { // Nếu là admin (userRole = 1), hiển thị select và nút cập nhật
+            statusSelect.style.display = "inline-block";
+            updateStatusBtn.style.display = "inline-block";
+        }
+    }
+
     // Kiểm tra xem có orderId không
     if (!orderId) {
         console.error("Không tìm thấy ID đơn hàng trong URL");
@@ -54,7 +69,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function updateOrderStatus() {
         const selectedStatus = document.getElementById("orderStatus").value;
-    
+
         fetch(`http://localhost:3000/api/orders/${id}`, {
             method: 'PUT',
             headers: {
@@ -63,22 +78,23 @@ document.addEventListener("DOMContentLoaded", function () {
             },
             body: JSON.stringify({ status: selectedStatus })
         })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error("Không thể cập nhật trạng thái đơn hàng");
-            }
-            return response.json();
-        })
-        .then(data => {
-            alert(data.message); // Hiển thị thông báo thành công
-            fetchOrderInfo(); // Cập nhật lại thông tin đơn hàng trên trang
-        })
-        .catch(error => {
-            console.error("Lỗi khi cập nhật trạng thái đơn hàng:", error);
-            alert("Có lỗi xảy ra khi cập nhật trạng thái đơn hàng");
-        });
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("Không thể cập nhật trạng thái đơn hàng");
+                }
+                return response.json();
+            })
+            .then(data => {
+                alert("Cập nhật thành công"); // Hiển thị thông báo thành công
+                fetchOrderInfo(); // Cập nhật lại thông tin đơn hàng trên trang
+                window.location.href = '../order/order.html';
+            })
+            .catch(error => {
+                console.error("Lỗi khi cập nhật trạng thái đơn hàng:", error);
+                alert("Có lỗi xảy ra khi cập nhật trạng thái đơn hàng");
+            });
     }
-    
+
     // Gắn sự kiện cho nút cập nhật
     document.getElementById("updateStatusBtn").addEventListener("click", updateOrderStatus);
 
@@ -91,30 +107,30 @@ document.addEventListener("DOMContentLoaded", function () {
                 'Authorization': `Bearer ${token}`
             }
         })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error("Không thể lấy thông tin đơn hàng");
-            }
-            return response.json();
-        })
-        .then(data => {
-            if (Array.isArray(data) && data.length > 0) {
-                renderOrderInfo(data[0]);
-            } else {
-                throw new Error("Không tìm thấy thông tin đơn hàng");
-            }
-        })
-        .catch(error => {
-            console.error("Lỗi khi lấy thông tin đơn hàng:", error);
-        });
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("Không thể lấy thông tin đơn hàng");
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (Array.isArray(data) && data.length > 0) {
+                    renderOrderInfo(data[0]);
+                } else {
+                    throw new Error("Không tìm thấy thông tin đơn hàng");
+                }
+            })
+            .catch(error => {
+                console.error("Lỗi khi lấy thông tin đơn hàng:", error);
+            });
     }
 
     function renderOrderInfo(orderData) {
         const orderDetailsContainer = document.getElementById("order-details-container");
-        
+
         // Format the date
         const orderDate = new Date(orderData.created_at).toLocaleDateString('vi-VN');
-        
+
         // Create the HTML content
         const orderInfoHTML = `
             <div class="order-info">
@@ -125,10 +141,10 @@ document.addEventListener("DOMContentLoaded", function () {
                 <p><strong>Trạng thái:</strong> ${orderData.status}</p>
             </div>
         `;
-        
+
         // Set the HTML content of the container
         orderDetailsContainer.innerHTML = orderInfoHTML;
-        
+
         // Update the status select element
         const statusSelect = document.getElementById("orderStatus");
         statusSelect.value = orderData.status;
@@ -138,6 +154,7 @@ document.addEventListener("DOMContentLoaded", function () {
     fetchOrderDetails();
     fetchOrderInfo();
 
+    checkUserRole();
 
     // Xử lý sự kiện khi người dùng nhấn nút cập nhật trạng thái
     document.getElementById("updateStatusBtn").addEventListener("click", updateOrderStatus);

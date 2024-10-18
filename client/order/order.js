@@ -3,6 +3,10 @@ document.addEventListener("DOMContentLoaded", function () {
     const token = document.cookie.split('; ').find(row => row.startsWith('token='));
     const Token = token ? token.split('=')[1] : '';
 
+    // Lấy userId từ localStorage
+    const userRole = localStorage.getItem('userRole');
+
+
     // Hàm gọi API để lấy dữ liệu đơn hàng
     function fetchOrders() {
         fetch('http://localhost:3000/api/orders', {
@@ -40,7 +44,8 @@ document.addEventListener("DOMContentLoaded", function () {
             <td>${order.total_amount.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</td>
             <td>${renderOrderStatus(order.status)}</td>
             <td class="actions-btn">
-                <a href="../order-detail/order-detail.html?id=${order.id}" class="edit-btn"><i class="fas fa-eye"></i></a>
+                ${userRole === '1' ? `<a href="../order-detail/order-detail.html?id=${order.id}" class="edit-btn"><i class="fas fa-edit"></i></a>` : ''}
+                ${userRole === '2' ? `<a href="../order-detail/order-detail.html?id=${order.id}" class="edit-btn"><i class="fas fa-eye"></i></a>` : ''}
             </td>
         `;
 
