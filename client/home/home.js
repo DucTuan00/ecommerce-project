@@ -1,3 +1,13 @@
+document.getElementById('reset-sort').addEventListener('click', function() {
+    console.log('Reset sort');
+    location.reload(true);
+});
+
+document.getElementById('resert-search').addEventListener('click', function() {
+    console.log('Reset sort');
+    location.reload(true);
+});
+
 // Hàm để lấy giá trị của cookie theo tên
 function getCookie(name) {
     const value = `; ${document.cookie}`;
@@ -150,7 +160,6 @@ function searchProducts(term) {
 
 // Lấy phần tử input và nút tìm kiếm
 const searchInput = document.getElementById('search-input');
-console.log(searchInput);
 const searchButton = document.getElementById('search-button');
 
 // Thêm sự kiện click cho nút tìm kiếm
@@ -162,3 +171,67 @@ searchButton.addEventListener('click', function() {
         console.log('Vui lòng nhập từ khóa tìm kiếm.');
     }
 });
+
+function sortProducts(order) {
+    console.log('Sắp xếp sản phẩm:', order);
+    const sortedProducts = [...productList].sort((a, b) => {
+        if (order === 'highToLow') {
+            return b.price - a.price;
+        } else {
+            return a.price - b.price;
+        }
+    });
+    renderProducts(sortedProducts);
+}
+
+function setSelectedButton(button) {
+    document.querySelectorAll('.sort-high-to-low, .sort-low-to-high').forEach(btn => {
+        btn.classList.remove('selected-button');
+    });
+    button.classList.add('selected-button');
+}
+
+document.getElementById('sort-high-to-low').addEventListener('click', function() {
+    sortProducts('highToLow');
+    setSelectedButton(this);
+});
+
+document.getElementById('sort-low-to-high').addEventListener('click', function() {
+    sortProducts('lowToHigh');
+    setSelectedButton(this);
+});
+
+function filterProductsByPrice(minPrice, maxPrice) {
+    const filteredProducts = productList.filter(product => {
+        return product.price >= minPrice && (maxPrice === null || product.price <= maxPrice);
+    });
+    renderProducts(filteredProducts);
+}
+
+document.getElementById('filter-0-1m').addEventListener('click', function() {
+    filterProductsByPrice(0, 1000000);
+    setSelectedButton(this);
+});
+
+document.getElementById('filter-1m-10m').addEventListener('click', function() {
+    filterProductsByPrice(1000000, 10000000);
+    setSelectedButton(this);
+});
+
+document.getElementById('filter-10m-plus').addEventListener('click', function() {
+    filterProductsByPrice(10000000, null);
+    setSelectedButton(this);
+});
+
+document.getElementById('reset-filter').addEventListener('click', function() {
+    renderProducts(productList);
+    setSelectedButton(this);
+});
+
+function setSelectedButton(button) {
+    document.querySelectorAll('.sort-high-to-low, .sort-low-to-high, .price-filter').forEach(btn => {
+        btn.classList.remove('selected-button');
+    });
+    button.classList.add('selected-button');
+}
+

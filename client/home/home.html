@@ -56,6 +56,16 @@
             cursor: pointer;
             margin-left: 10px;
         }
+        
+        .resert-search-button{
+            padding: 13px 25px;
+            background-color: #f5222d;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
 
         .nav-links {
             display: flex;
@@ -154,6 +164,7 @@
             width: 100%;
             justify-content: center;
             align-items: flex-start;
+            flex-direction: row;
         }
 
         .main-content {
@@ -163,7 +174,6 @@
             border-radius: 25px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             margin-bottom: 30px;
-            align-items: center;
 
         }
 
@@ -171,8 +181,8 @@
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
             gap: 20px;
-            padding: 40px 10%;
-            width: 80%;
+            padding: 40px 0;
+            width: 75%;
         }
 
         .product-item {
@@ -281,6 +291,7 @@
         .main-content-layout {
             margin-top: 20px;
         }
+
         .slideshow-container {
             width: 100%;
             margin: 0 auto;
@@ -301,6 +312,7 @@
             top: 0;
             left: 0;
         }
+
         .search-container {
             display: flex;
             justify-content: center;
@@ -340,6 +352,61 @@
 
         #search-button:hover {
             background-color: #fa541c;
+        }
+
+        .filter {
+            width: 20%;
+            background-color: #333;
+            color: white;
+            border: none;
+            border-radius: 15px 0 0 15px;
+            cursor: pointer;
+        }
+
+        .filter-header {
+            padding: 10px;
+            font-size: 20px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .sort-low-to-high,
+        .price-filter,
+        .sort-high-to-low {
+            padding: 10px;
+            margin: 5px;
+            width: 96%;
+            border-radius: 10px;
+            font-size: 16px;
+            text-align: center;
+            border: none;
+            background-color: white;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            align-items: center;
+        }
+
+        .selected-button {
+            background-color: #ff6600;
+            color: white;
+        }
+
+        .sort-reset {
+            padding: 10px;
+            margin: 5px;
+            width: 94%;
+            border-radius: 10px;
+            font-size: 16px;
+            text-align: center;
+            border: none;
+            background-color: #f44336;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .sort-reset:hover {
+            background-color: #d32f2f;
         }
     </style>
     <script src="https://kit.fontawesome.com/91c8b57a30.js" crossorigin="anonymous"></script>
@@ -396,10 +463,38 @@
     <div class="search-container">
         <input type="text" id="search-input" placeholder="Tìm kiếm sản phẩm...">
         <button id="search-button">Tìm kiếm</button>
+        <button id="resert-search" class="resert-search-button">Xóa</button>
     </div>
-    
+
     <div class="main-content-layout">
         <div class="main-content">
+            <div class="filter">
+                <div class="filter-header">
+                    <i class="fa-solid fa-sort"></i>&nbsp;Sắp xếp theo giá tiền
+                </div>
+                <br>
+                <button id="sort-high-to-low" class="sort-high-to-low">Cao&nbsp;<i
+                        class="fa-solid fa-arrow-right"></i>&nbsp;Thấp</button>
+                <button id="sort-low-to-high" class="sort-low-to-high">Thấp&nbsp;<i
+                        class="fa-solid fa-arrow-right"></i>&nbsp;Cao</button>
+                <br>
+                <br>
+                <br>
+                <br>
+                <div class="filter-header">
+                    <i class="fa-solid fa-filter"></i>&nbsp;Lọc theo giá tiền
+                </div>
+                <button id="filter-0-1m" class="price-filter">0&nbsp;<i class="fa-solid fa-arrow-right"></i>&nbsp;1
+                    triệu</button>
+                <button id="filter-1m-10m" class="price-filter">1 triệu&nbsp;<i
+                        class="fa-solid fa-arrow-right"></i>&nbsp;10 triệu</button>
+                <button id="filter-10m-plus" class="price-filter">Lớn hơn 10 triệu</button>
+                <br>
+                <br>
+                <br>
+                <br>
+                <button id="reset-sort" class="sort-reset">Bỏ sắp xếp</button>
+            </div>
             <div class="products-container" id="products-container"></div>
         </div>
     </div>

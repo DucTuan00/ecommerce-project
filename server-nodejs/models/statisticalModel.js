@@ -1,13 +1,13 @@
 const db = require('../config/db');
 
-// Hàm lấy tổng số tiền theo tháng trong một năm
 const getTotalAmountByYear = (year, callback) => {
     const sql = `
         SELECT 
             MONTH(created_at) AS month, 
             SUM(total_amount) AS total_amount
         FROM orders 
-        WHERE YEAR(created_at) = ?
+        WHERE YEAR(created_at) = ? 
+        AND status = 'completed'
         GROUP BY MONTH(created_at)
         ORDER BY MONTH(created_at);
     `;
