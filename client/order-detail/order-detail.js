@@ -58,7 +58,7 @@ document.addEventListener("DOMContentLoaded", function () {
         products.forEach(product => {
             const tr = document.createElement("tr");
             tr.innerHTML = `
-                <td>${product.product_id}</td>
+                <td>${product.product_name}</td>
                 <td>${product.quantity}</td>
                 <td>${product.price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</td>
             `;

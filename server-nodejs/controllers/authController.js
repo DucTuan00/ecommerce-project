@@ -1,13 +1,18 @@
 const authModel = require('../models/authModel');
 
-// Đăng ký
 exports.register = (req, res) => {
     const { username, password, role_id } = req.body;
-    console.log("register")
+    console.log("register");
     const userRoleId = role_id || 2;
 
-    authModel.register(username, password, role_id, (err, user) => {
-        if (err) return res.status(500).json({ message: 'Error registering user' });
+    authModel.register(username, password, userRoleId, (err, user) => {
+        if (err) {
+            if (err.message === 'Username already exists') {
+                return res.status(400).json({ message: 'Username đã tồn tại' });
+            }
+            return res.status(500).json({ message: 'Lỗi trong quá trình tạo tài khoản' });
+        }
+        
         res.status(201).json({
             id: user.id,
             username: user.username,
@@ -15,6 +20,7 @@ exports.register = (req, res) => {
         });
     });
 };
+
 
 // Đăng nhập
 exports.login = (req, res) => {
