@@ -4,7 +4,7 @@ const orderController = require('../controllers/orderController');
 const authMiddleware = require('../middleware/authMiddleware');
 
 // Lấy danh sách đơn hàng của người dùng hiện tại
-router.get('/', authMiddleware(['1','2']), orderController.getUserOrders);
+router.get('/getUserOrder', authMiddleware(['1','2']), orderController.getUserOrders);
 
 router.get('/:id', authMiddleware(['1','2']), orderController.getOrderById);
 
@@ -14,12 +14,6 @@ router.get('/items/:id', authMiddleware(['1','2']), orderController.getAllOrderI
 
 router.put('/:id', authMiddleware(['1','2']), orderController.updateOrderStatus);
 
-router.put('/:id', authMiddleware(['1','2']), orderController.updateOrderStatus);
-
-console.log('Defining getAllOrders route');
-router.get('/getAll', (req, res) => {
-    console.log('getAllOrders route hit');
-    orderController.getAllOrders(req, res);
-});
+router.get('/', authMiddleware(['1']), orderController.getAllOrders);
 
 module.exports = router;

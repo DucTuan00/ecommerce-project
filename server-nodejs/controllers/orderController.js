@@ -125,16 +125,11 @@ exports.updateOrderStatus = (req, res) => {
 };
 
 exports.getAllOrders = (req, res) => {
-    console.log('getAllOrders called');
-    console.log('Request object:', req.method, req.url, req.params, req.query);
-
     orderModel.getAllOrders((err, orders) => {
-        console.log('Inside getAllOrders callback');
         if (err) {
             console.error('Error fetching all orders:', err);
             return res.status(500).json({ message: 'Error fetching orders' });
         }
-        console.log('All orders fetched:', orders);
         res.status(200).json(orders);
     });
 };

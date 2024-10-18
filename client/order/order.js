@@ -14,9 +14,9 @@ document.addEventListener("DOMContentLoaded", function () {
     
         // Kiểm tra userRole để chọn URL API phù hợp
         if (userRole === '1') {
-            apiUrl = 'http://localhost:3000/api/orders/getAll';
-        } else if (userRole === '2') {
             apiUrl = 'http://localhost:3000/api/orders';
+        } else if (userRole === '2') {
+            apiUrl = 'http://localhost:3000/api/orders/getUserOrder';
         }
     
         console.log('Fetching orders from:', apiUrl);
@@ -27,22 +27,23 @@ document.addEventListener("DOMContentLoaded", function () {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${Token}`
+                    'Authorization': `Bearer ${Token}` // Đảm bảo token có giá trị hợp lệ
                 }
             })
             .then(response => {
                 console.log('Response received:', response);
                 console.log('Response status:', response.status);
-                return response.text(); // Đọc response body dưới dạng text
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                return response.json();  // Chuyển đổi trực tiếp thành JSON
             })
-            .then(text => {
-                console.log('Response body:', text);
-                try {
-                    const orders = JSON.parse(text); // Chuyển đổi text thành JSON
-                    console.log('Parsed orders:', orders);
-                    renderOrderTable(orders);
-                } catch (error) {
-                    console.error('Error parsing JSON:', error);
+            .then(orders => {
+                console.log('Parsed orders:', orders);
+                if (orders.length === 0) {
+                    console.warn('No orders found.');
+                } else {
+                    renderOrderTable(orders);  // Hiển thị đơn hàng trong bảng
                 }
             })
             .catch(error => {
@@ -63,6 +64,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             // Tạo các cột dữ liệu
             tr.innerHTML = `
+            <td>${order.username}</td>
             <td>${order.phone_number}</td>
             <td>${order.address}</td>
             <td>${new Date(order.created_at).toLocaleDateString()}</td>
@@ -73,11 +75,30 @@ document.addEventListener("DOMContentLoaded", function () {
                 ${userRole === '2' ? `<a href="../order-detail/order-detail.html?id=${order.id}" class="edit-btn"><i class="fas fa-eye"></i></a>` : ''}
             </td>
         `;
+            // Sự kiện click sẽ lọc
+            document.querySelector(".statusHeader").addEventListener('click', () => {
+                sortOrdersByStatus();
+            });
 
+            function sortOrdersByStatus() {
+                const sortedOrders = orders.sort((a, b) => {
+                    const statusOrder = {
+                        'pending': 1,
+                        'shipping': 2,
+                        'completed': 3,
+                        'canceled': 4
+                    };
+
+                    return statusOrder[a.status] - statusOrder[b.status];
+                });
+                
+                renderOrderTable(sortedOrders);
+            }
             orderTableBody.appendChild(tr);
         });
     }
 
+    
     // Hàm xử lý trạng thái đơn hàng
     function renderOrderStatus(status) {
         switch (status.toLowerCase()) { // Chuyển đổi trạng thái về chữ thường

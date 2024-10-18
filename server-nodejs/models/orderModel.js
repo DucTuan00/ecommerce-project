@@ -2,7 +2,12 @@ const db = require('../config/db');
 
 // Lấy tất cả đơn hàng của người dùng
 const getOrdersByUserId = (user_id, callback) => {
-    const sql = 'SELECT * FROM orders WHERE user_id = ?';
+    const sql = `
+        SELECT orders.*, users.username 
+        FROM orders 
+        JOIN users ON orders.user_id = users.id
+        WHERE user_id = ?
+    `;
     db.query(sql, [user_id], (err, results) => {
         if (err) return callback(err);
         callback(null, results);
@@ -35,11 +40,12 @@ const updateOrderStatus = (orderId, status, callback) => {
 
 // Lấy tất cả đơn hàng
 const getAllOrders = (callback) => {
-    const query = 'SELECT * FROM orders';
-    db.query(query, (err, results) => {
-        if (err) return callback(err, null);
-        callback(null, results);
-    });
+    const sql = `
+        SELECT orders.*, users.username 
+        FROM orders 
+        JOIN users ON orders.user_id = users.id
+    `;
+    db.query(sql, callback);
 };
 
 
