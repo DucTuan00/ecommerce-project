@@ -61,7 +61,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 <td>${product.product_id}</td>
                 <td>${product.quantity}</td>
                 <td>${product.price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</td>
-                <td>${(product.price * product.quantity).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</td>
             `;
             productTableBody.appendChild(tr);
         });
@@ -136,7 +135,6 @@ document.addEventListener("DOMContentLoaded", function () {
             <div class="order-info">
                 <p><strong>Mã đơn hàng:</strong> ${orderData.id}</p>
                 <p><strong>Ngày đặt hàng:</strong> ${orderDate}</p>
-                <p><strong>ID Khách hàng:</strong> ${orderData.user_id}</p>
                 <p><strong>Tổng tiền:</strong> ${orderData.total_amount.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</p>
                 <p><strong>Trạng thái:</strong> ${orderData.status}</p>
             </div>

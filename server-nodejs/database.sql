@@ -69,3 +69,5 @@ ADD phone_number varchar(10);
 
 ALTER TABLE orders
 ADD address varchar(255);
+
+ALTER TABLE products ADD COLUMN quantity INT DEFAULT 0;

@@ -9,9 +9,9 @@ const getOrdersByUserId = (user_id, callback) => {
     });
 };
 
-const createOrder = (user_id, total_amount, status, callback) => {
-    db.query('INSERT INTO orders (user_id, total_amount, status) VALUES (?, ?, ?)', 
-        [user_id, total_amount, status], callback);
+const createOrder = (user_id, total_amount, status, phone_number, address, callback) => {
+    db.query('INSERT INTO orders (user_id, total_amount, status, phone_number, address) VALUES (?, ?, ?, ?, ?)', 
+        [user_id, total_amount, status, phone_number, address], callback);
 };
 
 // Hàm thêm sản phẩm vào order_items

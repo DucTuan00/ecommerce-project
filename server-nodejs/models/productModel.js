@@ -40,6 +40,12 @@ const searchProducts = (searchTerm, callback) => {
     });
 };
 
+// Hàm kiểm tra và cập nhật số lượng sản phẩm
+const updateProductQuantity = (product_id, quantity, callback) => {
+    db.query('UPDATE products SET quantity = quantity - ? WHERE id = ? AND quantity >= ?', 
+        [quantity, product_id, quantity], callback);
+};
+
 module.exports = {
     getAllProducts,
     getProductById,
@@ -48,4 +54,5 @@ module.exports = {
     deleteProduct,
     searchProducts,
     searchProducts,
+    updateProductQuantity
 };

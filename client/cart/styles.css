@@ -220,3 +220,31 @@ body {
 .order-btn button:hover {
     background-color: #e55a00; /* Hiệu ứng khi hover */
 }
+
+.user-info {
+    align-items: center;
+    margin-top: 20px;
+    padding: 10px 0;
+}
+
+.user-info label {
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.user-info input {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 300px; /* Đặt độ rộng cho input */
+}
+
+.user-info label, .user-info input {
+    margin-top: 10px;
+}
+
+.user-info input:focus {
+    outline: none;
+    border-color: #ff8800;
+    box-shadow: 0 0 5px rgba(255, 136, 0, 0.5);
+}

@@ -165,16 +165,30 @@ document.querySelector('.cart-items').addEventListener('click', (event) => {
 });
 
 async function createOrder() {
+    const phone = document.getElementById('phone').value;
+    const address = document.getElementById('address').value;
+    
+    if (!phone || !address) {
+        alert('Vui lòng nhập đầy đủ số điện thoại và địa chỉ.');
+        return;
+    }
+
     try {
         const response = await fetch(`http://localhost:3000/api/orders`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${Token}`
-            }
+            },
+            body: JSON.stringify({
+                phone_number: phone,
+                address: address
+            })
         });
         if (!response.ok) {
             throw new Error('Không thể tạo đơn hàng');
+        } else {
+            alert('Đặt hàng thành công!');
         }
     } catch (error) {
         console.log('Lỗi khi tạo đơn hàng', error);

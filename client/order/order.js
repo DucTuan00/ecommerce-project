@@ -40,6 +40,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
             // Tạo các cột dữ liệu
             tr.innerHTML = `
+            <td>${order.phone_number}</td>
+            <td>${order.address}</td>
             <td>${new Date(order.created_at).toLocaleDateString()}</td>
             <td>${order.total_amount.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</td>
             <td>${renderOrderStatus(order.status)}</td>
@@ -58,10 +60,10 @@ document.addEventListener("DOMContentLoaded", function () {
         switch (status.toLowerCase()) { // Chuyển đổi trạng thái về chữ thường
             case 'pending':
                 return 'Chờ xử lý';
-            case 'shipped':
-                return 'Đã giao hàng';
+            case 'shipping':
+                return 'Đang giao hàng';
             case 'completed':
-                return 'Hoàn thành';
+                return 'Đã giao';
             case 'canceled':
                 return 'Đã hủy';
             default:
