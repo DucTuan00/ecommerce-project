@@ -24,7 +24,6 @@ document.addEventListener("DOMContentLoaded", () => {
         })
         .catch(error => {
             console.error('Error fetching user:', error);
-            alert('Đã xảy ra lỗi khi lấy thông tin người dùng.');
         });
 
     form.addEventListener('submit', (event) => {
