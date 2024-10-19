@@ -7,8 +7,11 @@ const checkAndDisplayProductLink = () => {
     if (userId === '1') {
         document.getElementById('product-link').style.display = 'block';
         document.getElementById('statistical-link').style.display = 'block';
+        document.getElementById('userManager-link').style.display = 'block';
     } else {
         document.getElementById('product-link').style.display = 'none';
         document.getElementById('statistical-link').style.display = 'none';
+        document.getElementById('userManager-link').style.display = 'none';
+
     }
 };

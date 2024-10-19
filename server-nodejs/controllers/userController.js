@@ -20,3 +20,38 @@ exports.deleteUser = (req, res) => {
         res.json({ message: 'Product deleted successfully' });
     });
 };
+
+// Cập nhật thông tin người dùng
+exports.updateUser = (req, res) => {
+    const { id } = req.params;
+    const { email, birthday } = req.body;  // Chỉ lấy email và birthday
+
+    // Tạo đối tượng người dùng để cập nhật
+    const updatedUser = {
+        email,
+        birthday
+    };
+
+    userModel.updateUser(id, updatedUser, (err, results) => {
+        if (err) {
+            console.error('Error updating user:', err);
+            return res.status(500).json({ message: 'Lỗi cập nhật người dùng' });
+        }
+        res.json({ message: 'Cập nhật thông tin cá nhân thành công' });
+    });
+};
+
+exports.getUserById = (req, res) => {
+    const userId = req.params.id; // Lấy userId từ params
+
+    // Kiểm tra người dùng có tồn tại không
+    userModel.getUserById(userId, (err, user) => {
+        if (err) {
+            return res.status(500).json({ message: 'Error fetching user' });
+        }
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+        res.status(200).json(user);
+    });
+};
