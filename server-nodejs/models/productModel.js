@@ -13,15 +13,15 @@ const getProductById = (product_id, callback) => {
 };
 
 // Thêm sản phẩm mới
-const createProduct = (name, price, image, description, category_id, callback) => {
-    db.query('INSERT INTO products (name, price, image, description, category_id) VALUES (?, ?, ?, ?, ?)', 
-        [name, price, image, description, category_id], callback);
+const createProduct = (name, price, image, description, category_id, quantity, callback) => {
+    db.query('INSERT INTO products (name, price, image, description, category_id, quantity) VALUES (?, ?, ?, ?, ?, ?)', 
+        [name, price, image, description, category_id, quantity], callback);
 };
 
 // Cập nhật sản phẩm
-const updateProduct = (id, name, price, image, description, category_id, callback) => {
-    db.query('UPDATE products SET name = ?, price = ?, image = ?, description = ?, category_id = ? WHERE id = ?', 
-        [name, price, image, description, category_id, id], callback);
+const updateProduct = (id, name, price, image, description, category_id, quantity, callback) => {
+    db.query('UPDATE products SET name = ?, price = ?, image = ?, description = ?, category_id = ?, quantity = ? WHERE id = ?', 
+        [name, price, image, description, category_id, quantity, id], callback);
 };
 
 // Xóa sản phẩm

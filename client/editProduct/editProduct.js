@@ -11,6 +11,7 @@ if (id) {
             // Cập nhật thông tin sản phẩm vào form
             document.getElementById('productName').value = data.name;
             document.getElementById('productPrice').value = data.price;
+            document.getElementById('productQuantity').value = data.quantity;
             document.getElementById('productDescription').value = data.description;
             document.getElementById('productCategory').value = data.category_id;
 
@@ -48,6 +49,7 @@ document.getElementById('addProductForm').addEventListener('submit', async funct
     const productName = document.getElementById('productName').value;
     const productPrice = document.getElementById('productPrice').value;
     const productImage = document.getElementById('productImage').files[0];
+    const productQuantity = document.getElementById('productQuantity').value;
     const productDescription = document.getElementById('productDescription').value;
     const productCategory = document.getElementById('productCategory').value;
 
@@ -55,6 +57,7 @@ document.getElementById('addProductForm').addEventListener('submit', async funct
     const formData = new FormData();
     formData.append('name', productName);
     formData.append('price', productPrice);
+    formData.append('quantity', productQuantity);
     formData.append('description', productDescription);
     formData.append('category_id', productCategory);
 
