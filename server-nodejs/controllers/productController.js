@@ -56,7 +56,7 @@ exports.updateProduct = (req, res) => {
     // Nếu không có imagePath, chỉ cập nhật các trường khác
     if (imagePath) {
         // Trường hợp có ảnh, cập nhật tất cả các trường
-        productModel.updateProduct(id, name, price, imagePath, description, category_id, (err, results) => {
+        productModel.updateProduct(id, name, price, imagePath, description, category_id, quantity, (err, results) => {
             if (err) {
                 console.error(err);
                 return res.status(500).json({ message: 'Error updating product' });
@@ -66,12 +66,13 @@ exports.updateProduct = (req, res) => {
                 price,
                 imagePath,
                 description,
-                category_id
+                category_id,
+                quantity,
             });
         });
     } else {
         // Trường hợp không có ảnh, bỏ qua việc cập nhật imagePath
-        productModel.updateProductWithoutImage(id, name, price, description, category_id, (err, results) => {
+        productModel.updateProductWithoutImage(id, name, price, description, category_id, quantity,  (err, results) => {
             if (err) {
                 console.error(err);
                 return res.status(500).json({ message: 'Error updating product' });
@@ -80,7 +81,8 @@ exports.updateProduct = (req, res) => {
                 name,
                 price,
                 description,
-                category_id
+                category_id,
+                quantity,
             });
         });
     }
