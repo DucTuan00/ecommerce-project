@@ -71,8 +71,14 @@ document.addEventListener("DOMContentLoaded", function () {
             <td>${order.total_amount.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</td>
             <td>${renderOrderStatus(order.status)}</td>
             <td class="actions-btn">
-                ${userRole === '1' ? `<a href="../order-detail/order-detail.html?id=${order.id}" class="edit-btn"><i class="fas fa-edit"></i></a>` : ''}
-                ${userRole === '2' ? `<a href="../order-detail/order-detail.html?id=${order.id}" class="edit-btn"><i class="fas fa-eye"></i></a>` : ''}
+                ${userRole === '1' ? `
+                    <a href="../order-detail/order-detail.html?id=${order.id}" class="edit-btn"><i class="fas fa-edit"></i></a>
+                    <button class="cancel-btn" data-id="${order.id}" "><i class="fas fa-ban"></i></button>
+                ` : ''}
+                ${userRole === '2' ? `
+                    <a href="../order-detail/order-detail.html?id=${order.id}" class="edit-btn"><i class="fas fa-eye"></i></a>
+                    <button class="cancel-btn" data-id="${order.id}" "><i class="fas fa-ban"></i></button>
+                ` : ''}
             </td>
         `;
             // Sự kiện click sẽ lọc
@@ -94,10 +100,44 @@ document.addEventListener("DOMContentLoaded", function () {
                 
                 renderOrderTable(sortedOrders);
             }
+
             orderTableBody.appendChild(tr);
+
+            // Xử lý sự kiện khi nhấn nút "Xóa"
+            const cancelBtn = tr.querySelector('.cancel-btn');
+            if (cancelBtn) {
+                cancelBtn.addEventListener('click', () => {
+                    const orderId = cancelBtn.getAttribute('data-id');
+                    if (confirm('Bạn có chắc chắn muốn hủy đơn hàng này không?')) {
+                        cancelOrder(orderId);
+                    }
+                });
+            }
         });
     }
 
+    function cancelOrder(orderId) {
+        fetch(`http://localhost:3000/api/orders/cancel/${orderId}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${Token}`
+            }
+        })
+        .then(response => {
+            if (response.ok) {
+                alert('Hủy đơn hàng thành công');
+
+                fetchOrders();
+            } else {
+                alert('Hủy đơn hàng thất bại vì đơn hàng đang giao hoặc đã được giao!');
+            }
+        })
+        .catch(error => {
+            console.error('Lỗi khi hủy đơn hàng:', error);
+            alert('Đã xảy ra lỗi khi hủy đơn hàng');
+        });
+    }
     
     // Hàm xử lý trạng thái đơn hàng
     function renderOrderStatus(status) {

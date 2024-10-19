@@ -58,7 +58,7 @@ async function loadCartAndProducts() {
     // Lấy tất cả product_id từ cartData
     const productIds = cartData.map(item => item.product_id);
 
-    if (productIds.length > 0) {
+    if (productIds.length >= 0) {
         // Gọi fetchProducts với danh sách productIds
         const productData = await fetchProducts(productIds);
         renderCart(cartData, productData);
@@ -186,16 +186,46 @@ async function createOrder() {
             })
         });
         if (!response.ok) {
+            const errorData = await response.json(); // Giả sử API trả về JSON chứa thông tin lỗi, bao gồm product_id
+
+            // Nếu có lỗi về số lượng trong kho, tiếp tục lấy thông tin sản phẩm bằng product_id
+            if (errorData.message && errorData.message.includes('Not enough stock')) {
+                const productId = errorData.message.match(/\d+/)[0]; // Lấy product_id từ message (dạng số)
+
+                // Gọi API để lấy thông tin sản phẩm dựa trên product_id
+                const productResponse = await fetch(`http://localhost:3000/api/products/${productId}`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${Token}`
+                    }
+                });
+
+                if (productResponse.ok) {
+                    const productData = await productResponse.json();
+                    console.log(productData);
+                    alert(`Bạn đã đặt quá số lượng trong kho của sản phẩm: ${productData.name}`);
+                } else {
+                    alert('Lỗi không thể lấy thông tin sản phẩm');
+                }
+            } else {
+                alert('Lỗi không xác định. Không thể tạo đơn hàng.');
+            }
+
             throw new Error('Không thể tạo đơn hàng');
+
         } else {
             alert('Đặt hàng thành công!');
+            window.location.href = '/client/order/order.html';
         }
     } catch (error) {
         console.log('Lỗi khi tạo đơn hàng', error);
     }
 }
 
-document.querySelector('.create-order').addEventListener('click', () => {
+document.querySelector('.create-order').addEventListener('click', (event) => {
+    //Không cho thẻ <a> thực hiện chuyển hướng mặc định
+    event.preventDefault();
     createOrder();
 })
 

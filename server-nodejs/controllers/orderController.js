@@ -133,3 +133,28 @@ exports.getAllOrders = (req, res) => {
         res.status(200).json(orders);
     });
 };
+
+
+exports.cancelOrder = (req, res) => {
+    const order_id = req.params.order_id;
+    console.log(order_id);
+    // Kiểm tra trạng thái của đơn hàng trước khi xóa
+    orderModel.getOrderById(order_id, (err, orderResult) => {
+        if (err) return res.status(500).json({ message: 'Error fetching order' });
+        if (!orderResult) return res.status(404).json({ message: 'Order not found' });
+
+        const order = orderResult[0];
+        console.log(order.status);
+        // Kiểm tra trạng thái đơn hàng
+        if (order.status !== 'pending') {
+            return res.status(400).json({ message: 'Only pending orders can be deleted' });
+        }
+
+        // Nếu trạng thái là pending, tiến hành xóa
+        orderModel.cancelOrder(order_id, (err) => {
+            if (err) return res.status(500).json({ message: 'Error deleting order' });
+
+            res.status(200).json({ message: 'Order canceled successfully' });
+        });
+    });
+};
