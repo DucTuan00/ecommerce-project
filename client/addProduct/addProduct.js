@@ -5,6 +5,7 @@ document.getElementById('addProductForm').addEventListener('submit', async funct
     const productName = document.getElementById('productName').value;
     const productPrice = document.getElementById('productPrice').value;
     const productImage = document.getElementById('productImage').files[0]; // Dữ liệu file
+    const productQuantity = document.getElementById('productQuantity').value;
     const productDescription = document.getElementById('productDescription').value;
     const productCategory = document.getElementById('productCategory').value;
 
@@ -13,6 +14,7 @@ document.getElementById('addProductForm').addEventListener('submit', async funct
     formData.append('name', productName);
     formData.append('price', productPrice);
     formData.append('image', productImage); // File hình ảnh
+    formData.append('quantity', productQuantity);
     formData.append('description', productDescription);
     formData.append('category_id', productCategory);
 

@@ -20,12 +20,12 @@ exports.getProductById = (req, res) => {
 
 // Thêm sản phẩm
 exports.createProduct = (req, res) => {
-    const { name, price, description, category_id } = req.body;
+    const { name, price, description, category_id, quantity } = req.body;
 
         const image = req.files.image ? req.files.image[0] : null;
         const imagePath = image ? image.path : null;
 
-    productModel.createProduct(name, price, imagePath, description, category_id, (err, results) => {
+    productModel.createProduct(name, price, imagePath, description, category_id, quantity, (err, results) => {
         if (err) {
             console.error(err);
             return res.status(500).json({ message: 'Error creating product' });
@@ -38,6 +38,7 @@ exports.createProduct = (req, res) => {
             imagePath,
             description,
             category_id,
+            quantity,
             message: 'Product created successfully'
         });
     });
@@ -46,7 +47,7 @@ exports.createProduct = (req, res) => {
 // Cập nhật sản phẩm
 exports.updateProduct = (req, res) => {
     const { id } = req.params;
-    const { name, price, description, category_id } = req.body;
+    const { name, price, description, category_id, quantity } = req.body;
 
     // Kiểm tra xem có file ảnh được tải lên không
     const image = req.files && req.files.image ? req.files.image[0] : null;

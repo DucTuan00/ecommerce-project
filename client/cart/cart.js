@@ -79,6 +79,7 @@ function renderCart(cartData, productData) {
             // Tìm sản phẩm trong mảng `productData` dựa trên `product_id`
             const product = productData.find(p => p.id === item.product_id);
             if (product) {
+                console.log("Product quantity: " + product.quantity);
                 const itemElement = createCartItemElement(item, product);
                 cartItemsContainer.appendChild(itemElement);
             } else {

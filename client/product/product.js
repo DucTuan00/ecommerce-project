@@ -24,9 +24,9 @@ document.addEventListener('DOMContentLoaded', function () {
             switch (categoryId) {
                 case 1: return 'Chảo';
                 case 2: return 'Nồi';
-                case 3: return 'Bếp';
-                case 4: return 'Máy xay';
-                case 5: return 'Máy hút bụi';
+                case 3: return 'Máy hút bụi';
+                case 4: return 'Bếp';
+                case 5: return 'Máy xay';
                 default: return 'Không xác định';
             }
         }
@@ -85,6 +85,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 <td>${product.name}</td>
                 <td>${new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(product.price)}</td>
                 <td>${getCategoryName(product.category_id)}</td>
+                <td>${product.quantity}</td>
                 <td>${product.description}</td>
             `;
             productTableBody.appendChild(row);
