@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registration Form</title>
 </head>
+
 <body style="
     font-family: Arial, sans-serif;
     background-color: #f9f9f9;
@@ -15,7 +17,7 @@
     margin: 0;
 ">
 
-<div class="container" style="
+    <div class="container" style="
     display: flex;
     max-width: 800px;
     width: 100%;
@@ -23,19 +25,19 @@
     border-radius: 10px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 ">
-    <div class="form-container" style="
+        <div class="form-container" style="
         width: 50%;
         padding: 40px;
         display: flex;
         flex-direction: column;
         justify-content: center;
     ">
-        <h2 style="
+            <h2 style="
             margin-bottom: 20px;
             font-size: 24px;
         ">Đăng ký</h2>
-        <form id="registerForm">
-            <input type="text" id="username" placeholder="Tên người dùng" required style="
+            <form id="registerForm">
+                <input type="text" id="username" placeholder="Tên người dùng" required style="
                 width: 100%;
                 padding: 12px;
                 margin: 10px 0;
@@ -43,7 +45,7 @@
                 border-radius: 4px;
                 font-size: 16px;
             " />
-            <input type="password" id="password" placeholder="Mật khẩu" required style="
+                <input type="password" id="password" placeholder="Mật khẩu" required style="
                 width: 100%;
                 padding: 12px;
                 margin: 10px 0;
@@ -51,7 +53,7 @@
                 border-radius: 4px;
                 font-size: 16px;
             " />
-            <input type="password" id="confirmPassword" placeholder="Nhập lại mật khẩu" required style="
+                <input type="password" id="confirmPassword" placeholder="Nhập lại mật khẩu" required style="
                 width: 100%;
                 padding: 12px;
                 margin: 10px 0;
@@ -59,13 +61,29 @@
                 border-radius: 4px;
                 font-size: 16px;
             " />
-            <div class="remember-forgot" style="
+                <input type="email" id="email" placeholder="Nhập Email" required style="
+                        width: 100%;
+                        padding: 12px;
+                        margin: 10px 0;
+                        border: 1px solid #ccc;
+                        border-radius: 4px;
+                        font-size: 16px;
+                    " />
+                <input type="date" id="birthday" placeholder="Nhập ngày sinh" required style="
+                                width: 100%;
+                                padding: 12px;
+                                margin: 10px 0;
+                                border: 1px solid #ccc;
+                                border-radius: 4px;
+                                font-size: 16px;
+                            " />
+                <div class="remember-forgot" style="
                 display: flex;
                 justify-content: space-between;
                 margin: 10px 0;
             ">
-            </div>
-            <button id="signUpButton" type="submit" style="
+                </div>
+                <button id="signUpButton" type="submit" style="
                 width: 108%;
                 padding: 12px;
                 background-color: #ff416c;
@@ -75,14 +93,14 @@
                 cursor: pointer;
                 font-size: 16px;
             ">Đăng ký</button>
-            <p id="errorMessage" class="error" style="
+                <p id="errorMessage" class="error" style="
                 color: red;
                 font-size: 14px;
                 margin-top: 10px;
             "></p>
-        </form>
-    </div>
-    <div class="info-container" style="
+            </form>
+        </div>
+        <div class="info-container" style="
         width: 50%;
         background: linear-gradient(to right, #ff4b2b, #ff416c);
         color: white;
@@ -94,15 +112,15 @@
         justify-content: center;
         align-items: center;
     ">
-        <h2 style="
+            <h2 style="
             margin: 0;
             font-size: 28px;
         ">Chào mừng trờ lại</h2>
-        <p style="
+            <p style="
             margin: 20px 0;
             font-size: 16px;
         ">Bạn đã có tài khoản?</p>
-        <button style="
+            <button style="
             width: auto;
             background-color: transparent;
             border: 1px solid white;
@@ -112,11 +130,12 @@
             cursor: pointer;
             color: white;
         "><a href="../login/login.html" style="color: white;text-decoration: none;">Đăng nhập</a></button>
+        </div>
     </div>
-</div>
 
-<!-- Link your JavaScript file -->
-<script src="register.js"></script>
+    <!-- Link your JavaScript file -->
+    <script src="register.js"></script>
 
 </body>
+
 </html>
