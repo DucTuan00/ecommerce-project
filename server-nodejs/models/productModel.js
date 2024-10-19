@@ -24,6 +24,12 @@ const updateProduct = (id, name, price, image, description, category_id, callbac
         [name, price, image, description, category_id, id], callback);
 };
 
+// Cập nhật sản phẩm không có ảnh
+const updateProductWithoutImage = (id, name, price, description, category_id, callback) => {
+    db.query('UPDATE products SET name = ?, price = ?, description = ?, category_id = ? WHERE id = ?', 
+        [name, price, description, category_id, id], callback);
+};
+
 // Xóa sản phẩm
 const deleteProduct = (id, callback) => {
     db.query('DELETE FROM products WHERE id = ?', [id], callback);
@@ -54,5 +60,6 @@ module.exports = {
     deleteProduct,
     searchProducts,
     searchProducts,
-    updateProductQuantity
+    updateProductQuantity,
+    updateProductWithoutImage,
 };

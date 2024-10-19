@@ -9,7 +9,7 @@ const storage = multer.diskStorage({
         cb(null, 'uploads/'); // Thư mục lưu trữ ảnh
     },
     filename: (req, file, cb) => {
-        cb(null, Date.now() + '-' + file.originalname); // Đặt tên file
+        cb(null, file.originalname); // Đặt tên file
     }
 });
 

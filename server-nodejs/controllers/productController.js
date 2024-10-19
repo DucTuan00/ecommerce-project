@@ -25,10 +25,6 @@ exports.createProduct = (req, res) => {
         const image = req.files.image ? req.files.image[0] : null;
         const imagePath = image ? image.path : null;
 
-    // console.log("imagePath", imagePath);
-
-    // console.log("data", req.body, req.file); 
-
     productModel.createProduct(name, price, imagePath, description, category_id, (err, results) => {
         if (err) {
             console.error(err);
@@ -52,24 +48,43 @@ exports.updateProduct = (req, res) => {
     const { id } = req.params;
     const { name, price, description, category_id } = req.body;
 
-    const image = req.files.image ? req.files.image[0] : null;
+    // Kiểm tra xem có file ảnh được tải lên không
+    const image = req.files && req.files.image ? req.files.image[0] : null;
     const imagePath = image ? image.path : null;
 
-
-    productModel.updateProduct(id, name, price, imagePath, description, category_id, (err, results) => {
-        if (err) {
-            console.error(err); 
-            return res.status(500).json({ message: 'Error updating product' });
-        }
-        res.status(201).json({
-            name,
-            price,
-            imagePath,
-            description,
-            category_id
+    // Nếu không có imagePath, chỉ cập nhật các trường khác
+    if (imagePath) {
+        // Trường hợp có ảnh, cập nhật tất cả các trường
+        productModel.updateProduct(id, name, price, imagePath, description, category_id, (err, results) => {
+            if (err) {
+                console.error(err);
+                return res.status(500).json({ message: 'Error updating product' });
+            }
+            res.status(201).json({
+                name,
+                price,
+                imagePath,
+                description,
+                category_id
+            });
         });
-    });
+    } else {
+        // Trường hợp không có ảnh, bỏ qua việc cập nhật imagePath
+        productModel.updateProductWithoutImage(id, name, price, description, category_id, (err, results) => {
+            if (err) {
+                console.error(err);
+                return res.status(500).json({ message: 'Error updating product' });
+            }
+            res.status(201).json({
+                name,
+                price,
+                description,
+                category_id
+            });
+        });
+    }
 };
+
 
 // Xóa sản phẩm
 exports.deleteProduct = (req, res) => {

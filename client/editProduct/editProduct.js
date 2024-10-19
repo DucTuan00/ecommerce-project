@@ -40,16 +40,15 @@ if (id) {
     console.error('Không tìm thấy id trong URL');
 }
 
-// Thêm sự kiện submit cho form để cập nhật sản phẩm
 document.getElementById('addProductForm').addEventListener('submit', async function(event) {
     event.preventDefault(); // Ngăn chặn submit form truyền thống
 
     // Lấy dữ liệu từ form
     const productName = document.getElementById('productName').value;
     const productPrice = document.getElementById('productPrice').value;
-    const productImage = document.getElementById('productImage').files[0];
     const productDescription = document.getElementById('productDescription').value;
     const productCategory = document.getElementById('productCategory').value;
+    const productImage = document.getElementById('productImage').files[0];
 
     // Tạo đối tượng FormData để gửi cả dữ liệu text và file
     const formData = new FormData();
@@ -58,6 +57,9 @@ document.getElementById('addProductForm').addEventListener('submit', async funct
     formData.append('description', productDescription);
     formData.append('category_id', productCategory);
 
+    console.log(productImage);
+
+    // Chỉ thêm trường ảnh nếu có ảnh
     if (productImage) {
         formData.append('image', productImage); // File hình ảnh
     }
@@ -66,7 +68,6 @@ document.getElementById('addProductForm').addEventListener('submit', async funct
         console.log(key, value);
     }
     
-
     // Lấy token từ cookie
     const token = document.cookie.split('; ').find(row => row.startsWith('token='));
     const Token = token ? token.split('=')[1] : ''; 
