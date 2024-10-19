@@ -61,11 +61,6 @@ document.addEventListener('DOMContentLoaded', function () {
             <td class="select-product">
                 <input type="radio" name="selectProduct" class="select-item" value="${user.id}">
             </td>
-            <td class="actions-btn">
-                <a href="../editProduct/editProduct.html?id=${user.id}" class="edit-btn">
-                <i class="fas fa-edit"></i>
-                </a>
-            </td>
             <td>${user.username || 'Không xác định'}</td>
             <td>${user.role || 'Không xác định'}</td>
             <td>${user.email || 'Không xác định'}</td>
