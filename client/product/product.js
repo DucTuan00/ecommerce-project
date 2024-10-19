@@ -72,23 +72,25 @@ document.addEventListener('DOMContentLoaded', function () {
         const productsToShow = products.slice(start, end);
 
         productsToShow.forEach(product => {
-            const row = document.createElement('tr');
-            row.innerHTML = `
-                <td class="select-product">
-                    <input type="radio" name="selectProduct" class="select-item" value="${product.id}">
-                </td>
-                <td class="actions-btn">
-                    <a href="../editProduct/editProduct.html?id=${product.id}" class="edit-btn">
-                        <i class="fas fa-edit"></i>
-                    </a>
-                </td>
-                <td>${product.name}</td>
-                <td>${new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(product.price)}</td>
-                <td>${getCategoryName(product.category_id)}</td>
-                <td>${product.quantity}</td>
-                <td>${product.description}</td>
-            `;
-            productTableBody.appendChild(row);
+            if (product.active === 1) {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td class="select-product">
+                        <input type="radio" name="selectProduct" class="select-item" value="${product.id}">
+                    </td>
+                    <td class="actions-btn">
+                        <a href="../editProduct/editProduct.html?id=${product.id}" class="edit-btn">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                    </td>
+                    <td>${product.name}</td>
+                    <td>${new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(product.price)}</td>
+                    <td>${getCategoryName(product.category_id)}</td>
+                    <td>${product.quantity}</td>
+                    <td>${product.description}</td>
+                `;
+                productTableBody.appendChild(row);
+            }
         });
 
         // Thêm event listener cho radio buttons
@@ -139,8 +141,8 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
 
-        fetch(`http://localhost:3000/api/products/${id}`, {
-            method: 'DELETE',
+        fetch(`http://localhost:3000/api/products/delete/${id}`, {
+            method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${Token}`

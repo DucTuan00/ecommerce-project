@@ -29,6 +29,6 @@ router.post('/upload', authMiddleware(['1']), upload.single('image'), productCon
 
 router.put('/:id', authMiddleware(['1']), upload.fields([{ name: 'image'}]), productController.updateProduct);
 
-router.delete('/:id', authMiddleware(['1']), productController.deleteProduct);
+router.put('/delete/:id', authMiddleware(['1']), productController.deleteProduct);
 
 module.exports = router;

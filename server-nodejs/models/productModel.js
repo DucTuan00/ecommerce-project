@@ -26,7 +26,7 @@ const updateProduct = (id, name, price, image, description, category_id, quantit
 
 // Xóa sản phẩm
 const deleteProduct = (id, callback) => {
-    db.query('DELETE FROM products WHERE id = ?', [id], callback);
+    db.query('UPDATE products SET active = 0 WHERE id = ?', [id], callback);
 };
 
 // Tìm kiếm sản phẩm

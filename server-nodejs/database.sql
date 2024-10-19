@@ -71,3 +71,12 @@ ALTER TABLE orders
 ADD address varchar(255);
 
 ALTER TABLE products ADD COLUMN quantity INT DEFAULT 0;
+
+ALTER TABLE users
+ADD email varchar(50);
+
+ALTER TABLE users
+ADD birthday date;
+
+ALTER TABLE products
+ADD active TINYINT;
