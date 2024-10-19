@@ -132,7 +132,7 @@
         .delete-selected-btn {
             display: inline-block;
             width: 80px;
-            padding: 5px;
+            padding: 6px;
             color: white;
             border-radius: 5px;
             text-align: center;
@@ -264,10 +264,8 @@
 
     <!-- Main Content -->
     <div class="container">
-        <h1>Danh Sách Sản Phẩm</h1>
+        <h1>Danh Sách người dùng</h1>
 
-        <!-- Add Product Button and Delete Selected Button -->
-        <a href="../addProduct/addProduct.html" class="add-product-btn">Thêm</a>
         <button id="deleteButton" class="delete-selected-btn" disabled>Xóa</button>
 
         <!-- Product Table -->
@@ -275,12 +273,10 @@
             <thead>
                 <tr>
                     <th>Chọn</th>
-                    <th>Sửa</th>
-                    <th>Tên sản phẩm</th>
-                    <th>Giá</th>
-                    <th>Danh mục</th>
-                    <th>Số lượng</th>
-                    <th>Mô tả</th>
+                    <th>Tên người dùng</th>
+                    <th>Vai trò</th>
+                    <th>Email</th>
+                    <th>Ngày sinh</th>
                 </tr>
             </thead>
             <tbody id="productTableBody"></tbody>
@@ -312,7 +308,7 @@
 
     <script src="../checkAuth.js"></script>
     <script src="../header.js"></script>
-    <script src="../product/product.js"></script>
+    <script src="./view.js"></script>
     <script src="../check-permission.js"></script>
 
 </body>

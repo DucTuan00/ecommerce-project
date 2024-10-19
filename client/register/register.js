@@ -6,6 +6,8 @@ document.getElementById('registerForm').addEventListener('submit', async functio
     const username = document.getElementById('username').value;
     const password = document.getElementById('password').value;
     const confirmPassword = document.getElementById('confirmPassword').value;
+    const email = document.getElementById('email').value;
+    const birthday = document.getElementById('birthday').value;
     const errorMessage = document.getElementById('errorMessage');
 
     // Clear any previous error messages
@@ -28,7 +30,9 @@ document.getElementById('registerForm').addEventListener('submit', async functio
     const payload = {
         username: username,
         password: password,
-        role_id: 2
+        role_id: 2,
+        email: email,
+        birthday: birthday
     };
 
     try {

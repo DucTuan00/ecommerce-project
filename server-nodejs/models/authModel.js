@@ -3,7 +3,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
 //Đăng ký
-const register = (username, password, role_id, callback) => {
+const register = (username, password, role_id, email, birthday, callback) => {
     // Kiểm tra xem username đã tồn tại chưa
     db.query('SELECT * FROM users WHERE username = ?', [username], (err, results) => {
         if (err) return callback(err);
@@ -17,9 +17,12 @@ const register = (username, password, role_id, callback) => {
         bcrypt.hash(password, 10, (err, hash) => {
             if (err) return callback(err);
 
-            db.query('INSERT INTO users (username, password, role_id) VALUES (?, ?, ?)', [username, hash, role_id], (err, results) => {
-                if (err) return callback(err);
-                callback(null, { id: results.insertId, username });    
+            db.query('INSERT INTO users (username, password, role_id, email, birthday) VALUES (?, ?, ?, ?, ?)', [username, hash, role_id, birthday, email], (err, results) => {
+                if (err) {
+                    console.error('Error inserting user:', err);
+                    return callback(err);
+                }
+                callback(null, { id: results.insertId, username, role_id, birthday, email});
             });
         });
     });
