@@ -24,8 +24,9 @@ exports.createProduct = (req, res) => {
 
         const image = req.files.image ? req.files.image[0] : null;
         const imagePath = image ? image.path : null;
+        const active = 1;
 
-    productModel.createProduct(name, price, imagePath, description, category_id, quantity, (err, results) => {
+    productModel.createProduct(name, price, imagePath, description, category_id, quantity, active, (err, results) => {
         if (err) {
             console.error(err);
             return res.status(500).json({ message: 'Error creating product' });
@@ -39,6 +40,7 @@ exports.createProduct = (req, res) => {
             description,
             category_id,
             quantity,
+            active,
             message: 'Product created successfully'
         });
     });

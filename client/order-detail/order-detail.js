@@ -135,8 +135,11 @@ document.addEventListener("DOMContentLoaded", function () {
             <div class="order-info">
                 <p><strong>Mã đơn hàng:</strong> ${orderData.id}</p>
                 <p><strong>Ngày đặt hàng:</strong> ${orderDate}</p>
+                <p><strong>Người đặt:</strong> ${orderData.username}</p>
+                <p><strong>Số điện thoại:</strong> ${orderData.phone_number}</p>
+                <p><strong>Địa chỉ nhận hàng:</strong> ${orderData.address}</p>
                 <p><strong>Tổng tiền:</strong> ${orderData.total_amount.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</p>
-                <p><strong>Trạng thái:</strong> ${orderData.status}</p>
+                <p><strong>Trạng thái:</strong> ${renderOrderStatus(orderData.status)}</p>
             </div>
         `;
 
@@ -146,6 +149,22 @@ document.addEventListener("DOMContentLoaded", function () {
         // Update the status select element
         const statusSelect = document.getElementById("orderStatus");
         statusSelect.value = orderData.status;
+    }
+
+    // Hàm xử lý trạng thái đơn hàng
+    function renderOrderStatus(status) {
+        switch (status.toLowerCase()) { // Chuyển đổi trạng thái về chữ thường
+            case 'pending':
+                return 'Chờ xử lý';
+            case 'shipping':
+                return 'Đang giao hàng';
+            case 'completed':
+                return 'Đã giao';
+            case 'canceled':
+                return 'Đã hủy';
+            default:
+                return 'Không xác định';
+        }
     }
 
     // Gọi API lấy chi tiết đơn hàng khi trang vừa load

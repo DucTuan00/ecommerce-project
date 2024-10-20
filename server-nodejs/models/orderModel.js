@@ -36,7 +36,16 @@ const getAllOrderItemsByOrderId = (order_id, callback) => {
 }
 
 const getOrderById = (id, callback) => {
-    db.query('SELECT * FROM orders WHERE id = ?', [id], callback);
+    const sql = `
+        SELECT orders.*, users.username 
+        FROM orders 
+        JOIN users ON orders.user_id = users.id
+        WHERE orders.id = ?
+    `;
+    db.query(sql, [id], (err, results) => {
+        if (err) return callback(err);
+        callback(null, results);
+    });
 }
 
 const updateOrderStatus = (orderId, status, callback) => {
