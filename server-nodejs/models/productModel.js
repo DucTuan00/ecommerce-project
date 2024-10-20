@@ -24,10 +24,9 @@ const updateProduct = (id, name, price, image, description, category_id, quantit
         [name, price, image, description, category_id, quantity, id], callback);
 };
 
-// Cập nhật sản phẩm không có ảnh
-const updateProductWithoutImage = (id, name, price, description, category_id, callback) => {
-    db.query('UPDATE products SET name = ?, price = ?, description = ?, category_id = ? WHERE id = ?', 
-        [name, price, description, category_id, id], callback);
+const updateProductWithoutImage = (id, name, price, description, category_id, quantity, callback) => {
+    db.query('UPDATE products SET name = ?, price = ?, description = ?, category_id = ?, quantity = ? WHERE id = ?', 
+        [name, price, description, category_id, quantity, id], callback);
 };
 
 // Xóa sản phẩm

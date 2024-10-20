@@ -45,6 +45,7 @@ exports.createProduct = (req, res) => {
 };
 
 // Cập nhật sản phẩm
+// Cập nhật sản phẩm
 exports.updateProduct = (req, res) => {
     const { id } = req.params;
     const { name, price, description, category_id, quantity } = req.body;
@@ -72,7 +73,7 @@ exports.updateProduct = (req, res) => {
         });
     } else {
         // Trường hợp không có ảnh, bỏ qua việc cập nhật imagePath
-        productModel.updateProductWithoutImage(id, name, price, description, category_id, quantity,  (err, results) => {
+        productModel.updateProductWithoutImage(id, name, price, description, category_id, quantity, (err, results) => {
             if (err) {
                 console.error(err);
                 return res.status(500).json({ message: 'Error updating product' });
@@ -87,6 +88,7 @@ exports.updateProduct = (req, res) => {
         });
     }
 };
+
 
 
 // Xóa sản phẩm
