@@ -75,20 +75,26 @@ function renderCart(cartData, productData) {
     cartItemsContainer.innerHTML = '';
 
     if (Array.isArray(cartData)) {
+        let total = 0;
+
         cartData.forEach(item => {
             // Tìm sản phẩm trong mảng `productData` dựa trên `product_id`
             const product = productData.find(p => p.id === item.product_id);
             if (product) {
-                console.log("Product quantity: " + product.quantity);
-                const itemElement = createCartItemElement(item, product);
-                cartItemsContainer.appendChild(itemElement);
+                if (product.active === 1) {
+                    const itemElement = createCartItemElement(item, product);
+                    cartItemsContainer.appendChild(itemElement);
+
+                    total += item.total_money;
+                } else {
+                    removeItem(item.id);
+                }
             } else {
                 console.warn(`Không tìm thấy sản phẩm với ID: ${item.product_id}`);
             }
         });
 
         // Tính toán tổng số tiền
-        const total = cartData.reduce((acc, item) => acc + item.total_money, 0);
         updateCartTotal(total);
 
     } else {

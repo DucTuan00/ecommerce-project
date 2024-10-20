@@ -79,31 +79,33 @@ function renderProducts(products) {
     productsContainer.innerHTML = ''; // Xóa nội dung hiện tại
 
     products.forEach(product => {
-        const productItem = document.createElement('div');
-        productItem.classList.add('product-item');
+        if (product.active === 1) {
+            const productItem = document.createElement('div');
+            productItem.classList.add('product-item');
 
-        const productImage = document.createElement('img');
-        productImage.src = `../../server-nodejs/${product.image}`; 
-        productImage.alt = product.name;
+            const productImage = document.createElement('img');
+            productImage.src = `../../server-nodejs/${product.image}`;
+            productImage.alt = product.name;
 
-        const productName = document.createElement('div');
-        productName.classList.add('product-name');
-        productName.textContent = product.name;
+            const productName = document.createElement('div');
+            productName.classList.add('product-name');
+            productName.textContent = product.name;
 
-        const productPrice = document.createElement('div');
-        productPrice.classList.add('product-price');
-        productPrice.textContent = `${product.price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}`;
+            const productPrice = document.createElement('div');
+            productPrice.classList.add('product-price');
+            productPrice.textContent = `${product.price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}`;
 
-        // Gắn sự kiện click để chuyển hướng
-        productItem.addEventListener('click', function() {
-            window.location.href = `../viewProduct/viewProduct.html?id=${product.id}`;
-        });
+            // Gắn sự kiện click để chuyển hướng
+            productItem.addEventListener('click', function () {
+                window.location.href = `../viewProduct/viewProduct.html?id=${product.id}`;
+            });
 
-        productItem.appendChild(productImage);
-        productItem.appendChild(productName);
-        productItem.appendChild(productPrice);
+            productItem.appendChild(productImage);
+            productItem.appendChild(productName);
+            productItem.appendChild(productPrice);
 
-        productsContainer.appendChild(productItem);
+            productsContainer.appendChild(productItem);
+        }
     });
 }
 
