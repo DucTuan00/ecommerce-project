@@ -34,6 +34,7 @@ async function fetchProductDetails() {
         document.querySelector('.product-name').textContent = `Tên sản phẩm: ${product.name}`;
         document.querySelector('.product-price').textContent = `Giá: ${product.price} VND`;
         document.querySelector('.product-description').textContent = `Mô tả: ${product.description}`;
+        document.querySelector('.product-quantity').textContent = `Số lượng còn trong kho: ${product.quantity}`;
         
         // Gọi hàm để lấy thông tin thể loại sản phẩm
         fetchCategoryDetails(product.category_id).then((category) => {

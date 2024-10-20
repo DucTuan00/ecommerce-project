@@ -128,7 +128,7 @@ body {
     align-items: center;
     border-bottom: 1px solid #ddd;
     padding: 15px 0;
-    margin-left: 60px;
+    margin-left: 100px;
     width: 80%;
 }
 
@@ -200,10 +200,12 @@ body {
     text-align: right;
     font-size: 18px;
     margin-bottom: 20px;
+    margin-right: 120px;
 }
 
 .order-btn {
     text-align: right;
+    margin-right: 120px;
 }
 
 .order-btn button {
@@ -225,6 +227,7 @@ body {
     align-items: center;
     margin-top: 20px;
     padding: 10px 0;
+    margin-left: 90px;
 }
 
 .user-info label {
@@ -247,4 +250,8 @@ body {
     outline: none;
     border-color: #ff8800;
     box-shadow: 0 0 5px rgba(255, 136, 0, 0.5);
+}
+
+.user-info #address {
+    margin-left: 47px;
 }
