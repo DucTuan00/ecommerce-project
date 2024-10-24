@@ -19,7 +19,6 @@ const register = (username, password, role_id, email, birthday, callback) => {
 
             db.query('INSERT INTO users (username, password, role_id, email, birthday) VALUES (?, ?, ?, ?, ?)', [username, hash, role_id, birthday, email], (err, results) => {
                 if (err) {
-                    console.error('Error inserting user:', err);
                     return callback(err);
                 }
                 callback(null, { id: results.insertId, username, role_id, birthday, email});

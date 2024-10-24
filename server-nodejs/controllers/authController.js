@@ -2,7 +2,6 @@ const authModel = require('../models/authModel');
 
 exports.register = (req, res) => {
     const { username, password, role_id, birthday, email } = req.body;
-    console.log(req.body);
     const userRoleId = role_id || 2;
 
     authModel.register(username, password, userRoleId, birthday, email, (err, user) => {
