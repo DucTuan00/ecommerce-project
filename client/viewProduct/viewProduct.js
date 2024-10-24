@@ -32,7 +32,7 @@ async function fetchProductDetails() {
 
         // Cập nhật nội dung HTML với dữ liệu từ API
         document.querySelector('.product-name').textContent = `Tên sản phẩm: ${product.name}`;
-        document.querySelector('.product-price').textContent = `Giá: ${product.price} VND`;
+        document.querySelector('.product-price').textContent = `Giá: ${product.price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}`;
         document.querySelector('.product-description').textContent = `Mô tả: ${product.description}`;
         document.querySelector('.product-quantity').textContent = `Số lượng còn trong kho: ${product.quantity}`;
         
