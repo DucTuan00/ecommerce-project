@@ -41,9 +41,9 @@ CREATE TABLE carts (
 INSERT INTO roles (name) VALUES ('admin'), ('user');
 INSERT INTO categories (name) VALUES ('Chảo');
 INSERT INTO categories (name) VALUES ('Nồi');
+INSERT INTO categories (name) VALUES ('Máy hút bụi');
 INSERT INTO categories (name) VALUES ('Bếp');
 INSERT INTO categories (name) VALUES ('Máy xay');
-INSERT INTO categories (name) VALUES ('Máy hút bụi');
 
 CREATE TABLE orders (
     id INT AUTO_INCREMENT PRIMARY KEY,
